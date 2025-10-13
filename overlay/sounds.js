@@ -326,3 +326,156 @@ function playLastThree(ctx) {
   osc.start(ctx.currentTime);
   osc.stop(ctx.currentTime + 0.15);
 }
+
+// ===== ADDITIONAL COUNTDOWN SOUNDS =====
+
+function playClick(ctx) {
+  // Sharp click sound
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain).connect(ctx.destination);
+  osc.frequency.value = 1500;
+  osc.type = 'square';
+
+  gain.gain.setValueAtTime(0.3, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.03);
+
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.03);
+}
+
+function playBeep(ctx) {
+  // Simple beep
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain).connect(ctx.destination);
+  osc.frequency.value = 880;
+  osc.type = 'sine';
+
+  gain.gain.setValueAtTime(0.25, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.1);
+}
+
+function playBlip(ctx) {
+  // Short blip
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain).connect(ctx.destination);
+  osc.frequency.value = 1100;
+  osc.type = 'triangle';
+
+  gain.gain.setValueAtTime(0.2, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.06);
+
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.06);
+}
+
+function playSnap(ctx) {
+  // Finger snap simulation
+  const noise = ctx.createBufferSource();
+  const buffer = ctx.createBuffer(1, ctx.sampleRate * 0.1, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+
+  for (let i = 0; i < buffer.length; i++) {
+    data[i] = Math.random() * 2 - 1;
+  }
+
+  noise.buffer = buffer;
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'highpass';
+  filter.frequency.value = 2000;
+
+  const gain = ctx.createGain();
+  noise.connect(filter).connect(gain).connect(ctx.destination);
+
+  gain.gain.setValueAtTime(0.5, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+
+  noise.start(ctx.currentTime);
+  noise.stop(ctx.currentTime + 0.08);
+}
+
+function playTap(ctx) {
+  // Soft tap
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain).connect(ctx.destination);
+  osc.frequency.value = 400;
+  osc.type = 'sine';
+
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
+
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.05);
+}
+
+function playPing(ctx) {
+  // Metallic ping
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain).connect(ctx.destination);
+  osc.frequency.value = 2000;
+  osc.type = 'sine';
+
+  osc.frequency.exponentialRampToValueAtTime(1500, ctx.currentTime + 0.2);
+
+  gain.gain.setValueAtTime(0.3, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.2);
+}
+
+function playChirp(ctx) {
+  // Short chirp
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain).connect(ctx.destination);
+  osc.frequency.value = 800;
+  osc.type = 'sine';
+
+  osc.frequency.exponentialRampToValueAtTime(1400, ctx.currentTime + 0.08);
+
+  gain.gain.setValueAtTime(0.25, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.08);
+}
+
+function playPop(ctx) {
+  // Bubble pop
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain).connect(ctx.destination);
+  osc.frequency.value = 600;
+  osc.type = 'sine';
+
+  osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.1);
+
+  gain.gain.setValueAtTime(0.3, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.1);
+}
+
+function playTick(ctx) {
+  // Mechanical tick
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain).connect(ctx.destination);
+  osc.frequency.value = 1000;
+  osc.type = 'square';
+
+  gain.gain.setValueAtTime(0.2, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.04);
+
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.04);
+}

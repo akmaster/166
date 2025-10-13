@@ -187,6 +187,222 @@ if (!$code['is_bonus_code']) {
 }
 ```
 
+### 11. ⚠️ CRON TİMİNG GECİKMESİ
+
+```php
+// ❌ SORUN: Cron 59. saniyede çalışırsa 60. saniyelik kod 1 dakika gecikir
+$now = new DateTime('now', new DateTimeZone('UTC'));
+$nowFormatted = $now->format('Y-m-d\TH:i:s.u\Z');
+$usersResult = $db->query("users?select=*&next_code_time=lte.$nowFormatted");
+
+// ✅ ÇÖZÜM: 45 saniye tolerans ekle
+$now = new DateTime('now', new DateTimeZone('UTC'));
+$nowPlusTolerance = (clone $now)->modify('+45 seconds');
+$nowFormatted = $nowPlusTolerance->format('Y-m-d\TH:i:s.u\Z');
+$usersResult = $db->query("users?select=*&next_code_time=lte.$nowFormatted");
+
+// Artık cron 59. saniyede çalışsa bile 60. saniyelik kod üretilir!
+```
+
+### 12. ⚠️ CRON CLEANUP TOLERANS HATASI (KRİTİK!)
+
+```php
+// ❌ SORUN: Cleanup toleranslı zamanı kullanıyor, yeni kod hemen expire oluyor!
+$nowPlusTolerance = (clone $now)->modify('+45 seconds'); // 14:38:45
+$nowFormatted = $nowPlusTolerance->format('Y-m-d\TH:i:s.u\Z');
+
+// Kod oluştur: created_at = 14:38:00, expires_at = 14:38:35
+// Cleanup: expires_at < 14:38:45 ? → EVET! → is_active = false ❌
+
+// ✅ ÇÖZÜM: Cleanup için GERÇEK zamanı kullan
+$nowPlusTolerance = (clone $now)->modify('+45 seconds'); // User selection için
+$nowFormatted = $nowPlusTolerance->format('Y-m-d\TH:i:s.u\Z');
+$usersResult = $db->query("users?...&next_code_time=lte.$nowFormatted");
+
+// Cleanup için GERÇEK zaman
+$nowRealFormatted = $now->format('Y-m-d\TH:i:s.u\Z'); // 14:38:00
+$expiredResult = $db->query("codes?is_active=eq.true&expires_at=lt.$nowRealFormatted");
+// expires_at < 14:38:00 ? → HAYIR! → Kod SAFE! ✅
+```
+
+### 13. ⚠️ getActiveCode() TIMEZONE HATASI
+
+```php
+// ❌ SORUN: strtotime() lokal timezone kullanıyor
+$createdAt = strtotime($code['created_at']); // Lokal parse!
+$now = time();
+$elapsed = $now - $createdAt; // 3 saat fark olur!
+
+// ✅ ÇÖZÜM: DateTime ile UTC kullan
+$createdAt = new DateTime($code['created_at'], new DateTimeZone('UTC'));
+$now = new DateTime('now', new DateTimeZone('UTC'));
+$elapsed = $now->getTimestamp() - $createdAt->getTimestamp();
+```
+
+### 14. ⚠️ DATABASE UPDATE() PARAMETRE SIRASI
+
+```php
+// ❌ YANLIŞ - Parametreler ters sırada!
+$db->update('users', ['id' => $userId], $data);
+//                    ^^^^^^^^^^^^^^    ^^^^^
+//                    Bu CONDITIONS     Bu DATA olarak gidiyor!
+
+// ✅ DOĞRU - Doğru sıralama: update($table, $data, $conditions)
+$db->update('users', $data, ['id' => $userId]);
+//                    ^^^^^  ^^^^^^^^^^^^^^
+//                    DATA   CONDITIONS
+
+// Database class imzası:
+public function update($table, $data, $conditions = []) {
+    // 1. parametre: table name
+    // 2. parametre: güncellenecek data (SET kısmı)
+    // 3. parametre: WHERE koşulları
+}
+```
+
+**Belirti:** API success:true döndürüyor ama veritabanında değişiklik yok!  
+**Çözüm:** Tüm `$db->update()` çağrılarını kontrol et, parametre sırası doğru mu?
+
+---
+
+## 📁 PROJE DOSYA YAPISI
+
+```
+twitch-code-reward/
+│
+├── 📄 index.php                    # Ana dashboard (landing + izleyici/yayıncı tabs)
+├── 📄 streamers.php                # Canlı yayıncılar listesi
+├── 📄 callback.php                 # Twitch OAuth callback
+├── 📄 cron.php                     # Otomatik kod üretimi (cron job)
+├── 📄 .env                         # Konfigürasyon (Supabase, Twitch, Admin)
+├── 📄 README.md                    # Genel dokümantasyon
+├── 📄 INSTALLATION.md              # Kurulum rehberi
+├── 📄 QUICK_START.md               # Hızlı başlangıç
+├── 📄 prompt.md                    # Bu dosya (tam proje prompt)
+│
+├── 📂 config/                      # Konfigürasyon dosyaları
+│   ├── config.php                  # Ana config (sabitler, session)
+│   ├── database.php                # Supabase Database class (REST API wrapper)
+│   └── helpers.php                 # Yardımcı fonksiyonlar
+│
+├── 📂 database/                    # Veritabanı şemaları ve migrationlar
+│   ├── schema.sql                  # Tam veritabanı şeması (tüm tablolar)
+│   └── migrations/                 # Veritabanı migrationları
+│       ├── README.md               # Migration kullanım rehberi
+│       ├── add_is_bonus_code.sql   # Bonus kod sistemi
+│       ├── add_twitch_display_name.sql  # Display name + overlay theme
+│       └── add_sound_settings.sql  # Ses ayarları kolonları
+│
+├── 📂 api/                         # API endpoints (JSON responses)
+│   ├── auth.php                    # Twitch OAuth başlat
+│   ├── logout.php                  # Çıkış yap
+│   ├── get-active-code.php         # Aktif kod getir (overlay için)
+│   ├── submit-code.php             # Kod gönder (izleyici)
+│   ├── get-activity.php            # Son aktiviteler
+│   ├── get-live-streamers.php      # Canlı yayıncılar
+│   ├── get-public-stats.php        # Genel istatistikler
+│   ├── update-reward-amount.php    # Ödül miktarı güncelle
+│   ├── update-code-settings.php    # Kod ayarları güncelle
+│   ├── update-random-reward.php    # Rastgele ödül ayarları
+│   ├── update-sound-settings.php   # Ses ayarları güncelle
+│   ├── update-theme.php            # Overlay teması değiştir
+│   ├── request-payout.php          # Ödeme talebi oluştur
+│   ├── request-topup.php           # Bakiye yükleme talebi
+│   ├── calculate-budget.php        # Bütçe hesaplama
+│   ├── apply-budget-settings.php   # Bütçe ayarlarını uygula
+│   └── admin/                      # Admin API'leri
+│       ├── generate-code.php       # Manuel kod gönder
+│       └── get-code-details.php    # Kod detayları
+│
+├── 📂 admin/                       # Admin paneli
+│   ├── login.php                   # Admin girişi
+│   ├── logout.php                  # Admin çıkış
+│   ├── index.php                   # Admin dashboard
+│   ├── users.php                   # Kullanıcı yönetimi
+│   ├── codes.php                   # Kod yönetimi
+│   ├── payouts.php                 # Ödeme talepleri
+│   ├── balance-topups.php          # Bakiye yükleme talepleri
+│   ├── settings.php                # Sistem ayarları
+│   ├── assets/                     # Admin CSS/JS
+│   │   └── admin.css               # Admin panel stilleri
+│   └── includes/                   # Admin includes
+│       ├── header.php              # Admin header
+│       └── footer.php              # Admin footer
+│
+├── 📂 components/                  # Yeniden kullanılabilir componentler
+│   ├── RewardSettings/             # Ödül miktarı ayarlama
+│   │   ├── RewardSettings.php      # Component HTML
+│   │   ├── RewardSettings.js       # Component JS
+│   │   ├── RewardSettings.css      # Component CSS
+│   │   └── *.min.*                 # Minified versiyonlar
+│   │
+│   ├── RandomReward/               # Rastgele ödül sistemi
+│   │   ├── RandomReward.php
+│   │   ├── RandomReward.js
+│   │   ├── RandomReward.css
+│   │   └── *.min.*
+│   │
+│   ├── CodeSettings/               # Kod zamanlama ayarları
+│   │   ├── CodeSettings.php        # Countdown, duration, interval
+│   │   ├── CodeSettings.js         # Preset'ler, validasyon, timing info
+│   │   ├── CodeSettings.css
+│   │   └── *.min.*
+│   │
+│   ├── SoundSettings/              # Ses kontrol sistemi
+│   │   ├── SoundSettings.php       # Master toggle, ses seçimi, başlama zamanı
+│   │   ├── SoundSettings.js        # Preview, kaydetme, toggle logic
+│   │   └── SoundSettings.css       # Gradient design, toggles
+│   │
+│   └── BudgetCalculator/           # Bütçe hesaplama aracı
+│       ├── BudgetCalculator.php    # Kalkülator UI
+│       ├── BudgetCalculator.js     # Hesaplama mantığı
+│       ├── BudgetCalculator.css
+│       └── *.min.*
+│
+├── 📂 overlay/                     # OBS overlay dosyaları
+│   ├── index.php                   # Overlay ana sayfa (token ile erişim)
+│   ├── themes.css                  # 20 overlay teması
+│   └── sounds.js                   # 20 ses fonksiyonu (Web Audio API)
+│
+├── 📂 assets/                      # Genel asset'ler
+│   ├── css/                        # CSS dosyaları
+│   │   ├── style.css               # Ana stil dosyası
+│   │   ├── style.min.css           # Minified
+│   │   ├── landing.css             # Landing page stilleri
+│   │   └── landing.min.css         # Minified
+│   └── js/                         # JavaScript dosyaları
+│       ├── main.js                 # Ana JS (tab switching, modals)
+│       └── main.min.js             # Minified
+│
+├── 📂 cache/                       # File-based cache (otomatik oluşur)
+│   └── *.cache                     # Cache dosyaları (active_code_*, user_*)
+│
+└── 📂 memory-bank/                 # Cursor AI hafızası (opsiyonel)
+    ├── projectbrief.md             # Proje özeti
+    ├── productContext.md           # Ürün bağlamı
+    ├── systemPatterns.md           # Sistem desenleri
+    ├── techContext.md              # Teknoloji bağlamı
+    ├── activeContext.md            # Güncel çalışma
+    └── progress.md                 # İlerleme takibi
+```
+
+### 📦 Toplam Dosya Sayısı:
+
+- **PHP Files:** ~45
+- **JavaScript Files:** ~12
+- **CSS Files:** ~12
+- **SQL Files:** 4
+- **Config Files:** 1 (.env)
+- **Documentation:** 4
+
+### 🔑 Kritik Dosyalar:
+
+1. **`.env`** → Tüm hassas bilgiler (ASLA commit etme!)
+2. **`config/database.php`** → Supabase REST API wrapper
+3. **`cron.php`** → Otomatik kod üretimi (her 1 dakikada çalışmalı)
+4. **`overlay/index.php`** → OBS tarafından yüklenecek overlay
+5. **`database/schema.sql`** → İlk kurulumda çalıştır
+
 ---
 
 ## 🎯 ANA ÖZELLİKLER
@@ -1000,6 +1216,7 @@ php -r "echo password_hash('your_password', PASSWORD_BCRYPT);"
   - İstatistikler (dağıtılan ödül, kazanan izleyici, kullanılan kod, son aktivite)
   - RewardSettings component
   - CodeSettings component
+  - SoundSettings component (ses kontrolü)
   - RandomReward component
   - BudgetCalculator component
   - Tema seçici (20 tema + canlı önizleme)
@@ -1213,6 +1430,24 @@ error_log("Custom message: " . json_encode($data));
 - Reward: 0.10 TL
 - Payout Threshold: 5.00 TL
 - Participation Rate: %30
+
+### Profesyonel Limitler:
+
+**Minimum Limitler:**
+
+- **Countdown:** 0 saniye
+- **Code Duration:** 1 saniye
+- **Code Interval:** 60 saniye (1 dakika)
+  - **Sebep:** Cron job 1 dakikada bir çalışır
+  - Kullanıcı daha az ayarlasa bile sistem 60 saniye kullanır
+
+**Maksimum Limitler:**
+
+- **Countdown:** 300 saniye (5 dakika)
+- **Code Duration:** 3600 saniye (1 saat)
+- **Code Interval:** 86400 saniye (1 gün / 24 saat)
+  - **Sebep:** Gerçekçi ve profesyonel kullanım senaryoları
+  - Daha uzun süreler anlamsız ve test edilmemiş görünümü verir
 
 ### NULL Değer Mantığı:
 
@@ -1431,6 +1666,16 @@ Bu prompt ile başka bir AI, **aynı sistemi tam olarak yeniden oluşturabilir**
 **Sebep:** `is_bonus_code` kontrolü yok
 **Çözüm:** `if (!$code['is_bonus_code'])` ekle
 
+### Sorun 8: Kod Süre İçinde Kabul Edilmiyor
+
+**Sebep:** `expires_at` kontrolü yanlış, timezone ve duration eksik
+**Çözüm:** UTC kullan + `timeSinceCreated >= (countdown + duration)` kontrolü
+
+### Sorun 9: Kodlar 1-2 Dakika Gecikmeli Üretiliyor
+
+**Sebep:** Cron timing problemi (59. saniyede çalışırsa 60. saniyedeki kod kaçar)
+**Çözüm:** 45 saniye tolerans ekle: `modify('+45 seconds')`
+
 ---
 
 ## 📞 DESTEK VE KAYNAKLAR
@@ -1442,13 +1687,24 @@ Bu prompt ile başka bir AI, **aynı sistemi tam olarak yeniden oluşturabilir**
 - DateTime Timezone: https://www.php.net/manual/en/class.datetimezone.php
 
 **Son Güncelleme:** Ekim 2025
-**Versiyon:** 4.0 (Production Ready + Bug Fixes)
+**Versiyon:** 6.2 (Smart Countdown Sound)
 **Changelog:**
 
-- ✅ Timezone hatası düzeltildi (UTC zorunlu)
-- ✅ F5 kaldığı yerden devam eklendi
+- ✅ Timezone hatası düzeltildi (UTC zorunlu - tüm DateTime işlemleri)
+- ✅ F5 kaldığı yerden devam eklendi (resume functionality)
 - ✅ Overlay başlangıç gizleme eklendi
-- ✅ Aktif kod kontrolü eklendi
-- ✅ Bonus kod sistemi eklendi
+- ✅ Aktif kod kontrolü eklendi (duplicate prevention)
+- ✅ Bonus kod sistemi eklendi (admin codes, no balance deduction)
 - ✅ Database query string desteği eklendi
 - ✅ Supabase Realtime kurulum dokümantasyonu eklendi
+- ✅ Profesyonel limitler eklendi (Duration: 1 saat, Interval: 1 gün)
+- ✅ Kod giriş süre kontrolü düzeltildi (UTC + countdown + duration)
+- ✅ Cron timing toleransı eklendi (45s) - 1 dakika gecikme sorunu çözüldü
+- ✅ Kullanıcı bilgilendirme sistemi eklendi - Gerçek zamanlı boş bekleme süresi hesaplama
+- ✅ **KRİTİK BUG FIX:** Cron cleanup tolerans hatası düzeltildi - Yeni kodlar artık expire olmuyor
+- ✅ **KRİTİK BUG FIX:** getActiveCode() timezone hatası düzeltildi - F5'te kod kaybolma sorunu çözüldü
+- ✅ **YENİ ÖZELLİK:** Ses kontrol sistemi eklendi - 10 kod sesi + 10 geri sayım sesi
+- ✅ Kullanıcı bazında ses açma/kapama ve ses seçimi
+- ✅ Geri sayım sesi her saniyede çalacak şekilde güncellendi
+- ✅ **YENİ ÖZELLİK:** Granüler ses kontrolü - Her ses türü için ayrı toggle (kod sesi/geri sayım sesi bağımsız)
+- ✅ **YENİ ÖZELLİK:** Akıllı geri sayım sesi - "Son kaç saniyede ses çalsın" ayarı eklendi (0-300s)

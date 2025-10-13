@@ -59,18 +59,32 @@ $countdownDuration = $db->getSetting('countdown_duration', DEFAULT_COUNTDOWN_DUR
                 </div>
                 
                 <div class="form-group">
+                    <label>Varsayılan Countdown Süresi (saniye)</label>
+                    <input type="number" name="countdown_duration" min="<?php echo MIN_COUNTDOWN_DURATION; ?>" max="<?php echo MAX_COUNTDOWN_DURATION; ?>" value="<?php echo $countdownDuration; ?>" required>
+                    <small style="color: #6c757d;">Hazırlık süresi: 0-<?php echo MAX_COUNTDOWN_DURATION; ?> saniye (Maks: 5 dakika)</small>
+                </div>
+                
+                <div class="form-group">
                     <label>Varsayılan Kod Süresi (saniye)</label>
-                    <input type="number" name="code_duration" value="<?php echo $codeDuration; ?>" required>
+                    <input type="number" name="code_duration" min="<?php echo MIN_CODE_DURATION; ?>" max="<?php echo MAX_CODE_DURATION; ?>" value="<?php echo $codeDuration; ?>" required>
+                    <small style="color: #6c757d;">Kod gösterim süresi: <?php echo MIN_CODE_DURATION; ?>-<?php echo MAX_CODE_DURATION; ?> saniye (Maks: 1 saat)</small>
                 </div>
                 
                 <div class="form-group">
                     <label>Varsayılan Kod Aralığı (saniye)</label>
-                    <input type="number" name="code_interval" value="<?php echo $codeInterval; ?>" required>
+                    <input type="number" name="code_interval" min="<?php echo MIN_CODE_INTERVAL; ?>" max="<?php echo MAX_CODE_INTERVAL; ?>" value="<?php echo $codeInterval; ?>" required>
+                    <small style="color: #f39c12;">⚠️ Min: <?php echo MIN_CODE_INTERVAL; ?>s (1 dk) | Maks: <?php echo MAX_CODE_INTERVAL; ?>s (1 gün) - Cron job kısıtlaması</small>
                 </div>
                 
-                <div class="form-group">
-                    <label>Varsayılan Countdown Süresi (saniye)</label>
-                    <input type="number" name="countdown_duration" value="<?php echo $countdownDuration; ?>" required>
+                <div class="alert alert-info" style="margin: 20px 0; padding: 15px; background: #e7f3ff; border-left: 4px solid #0099ff; border-radius: 4px;">
+                    <strong>ℹ️ Zaman Hesaplama Örneği:</strong><br>
+                    <small style="color: #333; line-height: 1.6;">
+                        Countdown: <?php echo $countdownDuration; ?>s | Duration: <?php echo $codeDuration; ?>s | Interval: <?php echo $codeInterval; ?>s<br>
+                        <strong>→ Ekranda Görünür:</strong> <?php echo ($countdownDuration + $codeDuration); ?> saniye<br>
+                        <strong>→ Boş Bekleme:</strong> <?php echo max(0, $codeInterval - ($countdownDuration + $codeDuration)); ?> saniye<br>
+                        <strong>→ Toplam Döngü:</strong> <?php echo $codeInterval; ?> saniye<br>
+                        <em style="color: #666;">* Kullanıcılar bu değerleri kendi panellerinde özelleştirebilir</em>
+                    </small>
                 </div>
                 
                 <button type="submit" class="btn btn-primary btn-block">💾 Kaydet</button>

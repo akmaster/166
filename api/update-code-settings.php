@@ -28,8 +28,8 @@ if ($countdown === '' || $countdown === null) {
     $countdown = DEFAULT_COUNTDOWN_DURATION;
 } else {
     $countdown = intval($countdown);
-    if (!isValidInt($countdown, 0, 300)) {
-        jsonResponse(false, [], 'Countdown: 0-300 saniye arası');
+    if (!isValidInt($countdown, MIN_COUNTDOWN_DURATION, MAX_COUNTDOWN_DURATION)) {
+        jsonResponse(false, [], 'Countdown: ' . MIN_COUNTDOWN_DURATION . '-' . MAX_COUNTDOWN_DURATION . ' saniye arası (Maks: 5 dakika)');
     }
     $updateData['custom_countdown_duration'] = $countdown;
 }
@@ -40,8 +40,8 @@ if ($duration === '' || $duration === null) {
     $duration = DEFAULT_CODE_DURATION;
 } else {
     $duration = intval($duration);
-    if (!isValidInt($duration, 1, 9999999)) {
-        jsonResponse(false, [], 'Duration: 1-9,999,999 saniye arası');
+    if (!isValidInt($duration, MIN_CODE_DURATION, MAX_CODE_DURATION)) {
+        jsonResponse(false, [], 'Duration: ' . MIN_CODE_DURATION . '-' . MAX_CODE_DURATION . ' saniye arası (Maks: 1 saat)');
     }
     $updateData['custom_code_duration'] = $duration;
 }
@@ -52,8 +52,8 @@ if ($interval === '' || $interval === null) {
     $interval = DEFAULT_CODE_INTERVAL;
 } else {
     $interval = intval($interval);
-    if (!isValidInt($interval, 1, 9999999)) {
-        jsonResponse(false, [], 'Interval: 1-9,999,999 saniye arası');
+    if (!isValidInt($interval, MIN_CODE_INTERVAL, MAX_CODE_INTERVAL)) {
+        jsonResponse(false, [], 'Interval: ' . MIN_CODE_INTERVAL . '-' . MAX_CODE_INTERVAL . ' saniye arası (1 dakika - 1 gün)');
     }
     $updateData['custom_code_interval'] = $interval;
 }
@@ -61,6 +61,11 @@ if ($interval === '' || $interval === null) {
 // Validation rules
 if ($duration < ($countdown + 10)) {
     jsonResponse(false, [], 'Duration en az countdown + 10 saniye olmalı');
+}
+
+// Minimum interval check (60 seconds)
+if ($interval < MIN_CODE_INTERVAL) {
+    jsonResponse(false, [], 'Kod aralığı minimum ' . MIN_CODE_INTERVAL . ' saniye (1 dakika) olmalıdır. Sebep: Cron job 1 dakikada bir çalışıyor.');
 }
 
 if ($interval < ($duration + 30)) {

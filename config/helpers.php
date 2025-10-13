@@ -294,24 +294,38 @@ function getStreamInfo($twitchUserId) {
 function getEffectiveSetting($user, $settingName) {
     $customField = 'custom_' . $settingName;
     
+    $value = null;
+    
     if (isset($user[$customField]) && $user[$customField] !== null) {
-        return $user[$customField];
+        $value = $user[$customField];
+    } else {
+        // Return system default
+        $db = new Database();
+        switch ($settingName) {
+            case 'reward_amount':
+                $value = floatval($db->getSetting('reward_per_code', DEFAULT_REWARD_AMOUNT));
+                break;
+            case 'code_duration':
+                $value = intval($db->getSetting('code_duration', DEFAULT_CODE_DURATION));
+                break;
+            case 'code_interval':
+                $value = intval($db->getSetting('code_interval', DEFAULT_CODE_INTERVAL));
+                break;
+            case 'countdown_duration':
+                $value = intval($db->getSetting('countdown_duration', DEFAULT_COUNTDOWN_DURATION));
+                break;
+            default:
+                $value = null;
+        }
     }
     
-    // Return system default
-    $db = new Database();
-    switch ($settingName) {
-        case 'reward_amount':
-            return floatval($db->getSetting('reward_per_code', DEFAULT_REWARD_AMOUNT));
-        case 'code_duration':
-            return intval($db->getSetting('code_duration', DEFAULT_CODE_DURATION));
-        case 'code_interval':
-            return intval($db->getSetting('code_interval', DEFAULT_CODE_INTERVAL));
-        case 'countdown_duration':
-            return intval($db->getSetting('countdown_duration', DEFAULT_COUNTDOWN_DURATION));
-        default:
-            return null;
+    // Enforce minimum limits (aligned with cron frequency)
+    if ($settingName === 'code_interval') {
+        // Minimum interval: 60 seconds (cron runs every 1 minute)
+        $value = max(MIN_CODE_INTERVAL, intval($value));
     }
+    
+    return $value;
 }
 
 /**

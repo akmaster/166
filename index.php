@@ -307,6 +307,7 @@ $userBalance = $isLoggedIn ? (new Database())->getUserBalance($user['id']) : 0;
                     <?php include __DIR__ . '/components/RewardSettings/RewardSettings.php'; ?>
                     <?php include __DIR__ . '/components/RandomReward/RandomReward.php'; ?>
                     <?php include __DIR__ . '/components/CodeSettings/CodeSettings.php'; ?>
+                    <?php include __DIR__ . '/components/SoundSettings/SoundSettings.php'; ?>
                     <?php include __DIR__ . '/components/BudgetCalculator/BudgetCalculator.php'; ?>
                 </div>
             </div>

@@ -115,6 +115,104 @@
   margin-bottom: 4px;
 }
 
+/* Timing Info Box */
+.timing-info-box {
+  margin: 20px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(0, 184, 212, 0.1) 0%, rgba(145, 71, 255, 0.1) 100%);
+  border: 2px solid rgba(145, 71, 255, 0.3);
+  border-radius: 12px;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.timing-info-box h4 {
+  margin: 0 0 16px 0;
+  color: var(--text-primary, #efeff1);
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.timing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.timing-item {
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.timing-item:hover {
+  transform: translateX(4px);
+}
+
+.timing-item.highlight {
+  background: rgba(0, 184, 212, 0.15);
+  border: 1px solid rgba(0, 184, 212, 0.3);
+}
+
+.timing-item.total {
+  grid-column: 1 / -1;
+  background: rgba(145, 71, 255, 0.2);
+  border: 2px solid rgba(145, 71, 255, 0.5);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.timing-item .label {
+  color: var(--text-secondary, #adadb8);
+  font-size: 0.9rem;
+  margin-right: 8px;
+}
+
+.timing-item .value {
+  color: var(--text-primary, #efeff1);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.timing-item .value.success {
+  color: var(--success, #00d4aa);
+}
+
+.timing-item .value.warning {
+  color: var(--warning, #ffa502);
+}
+
+.timing-item .value.danger {
+  color: var(--danger, #ff4757);
+}
+
+.timing-explanation {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.timing-explanation small {
+  color: var(--text-secondary, #adadb8);
+  line-height: 1.6;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 768px) {
   .settings-grid {
     grid-template-columns: 1fr;
@@ -126,5 +224,13 @@
 
   .btn-preset {
     width: 100%;
+  }
+
+  .timing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timing-item.total {
+    grid-column: 1;
   }
 }

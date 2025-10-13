@@ -1,0 +1,360 @@
+/**
+ * Sound Settings Component Styles
+ */
+
+.sound-settings-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+}
+
+.sound-settings-card .card-header h2 {
+  color: #fff;
+  font-size: 28px;
+  margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sound-settings-card .card-header p {
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  font-size: 14px;
+}
+
+.sound-settings-card .card-body {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 30px;
+  margin-top: 20px;
+}
+
+/* Toggle Switch */
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  position: relative;
+}
+
+.toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  background: #ccc;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-input:checked + .toggle-slider {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.toggle-input:checked + .toggle-slider::before {
+  transform: translateX(30px);
+}
+
+.toggle-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Disabled Section */
+.disabled-section {
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Sound Type Section */
+.sound-type-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px 0;
+  border: 2px solid #dee2e6;
+}
+
+.sound-type-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.sound-type-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+/* Small Toggle Switch */
+.toggle-label-small {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.toggle-slider-small {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  background: #ccc;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.toggle-slider-small::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 2.5px;
+  top: 2.5px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-input:checked + .toggle-slider-small {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.toggle-input:checked + .toggle-slider-small::before {
+  transform: translateX(25px);
+}
+
+.toggle-text-small {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+}
+
+/* Sound Select Container */
+.sound-select-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.form-select,
+.form-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 2px solid #e1e8ed;
+  border-radius: 10px;
+  font-size: 15px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.form-select {
+  cursor: pointer;
+}
+
+.form-input {
+  font-family: inherit;
+}
+
+.form-select:hover,
+.form-input:hover {
+  border-color: #667eea;
+}
+
+.form-select:focus,
+.form-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.btn-preview {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-preview:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+}
+
+.btn-preview:active {
+  transform: translateY(0);
+}
+
+/* Info Box */
+.info-box {
+  display: flex;
+  gap: 15px;
+  padding: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.info-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.info-content {
+  font-size: 14px;
+  color: #333;
+}
+
+.info-content strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.info-content ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.info-content li {
+  margin: 5px 0;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn-primary,
+.btn-secondary {
+  flex: 1;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(245, 87, 108, 0.4);
+}
+
+/* Status Message */
+.status-message {
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: 500;
+  animation: slideIn 0.3s ease;
+}
+
+.status-success {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+}
+
+.status-error {
+  background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+  color: white;
+}
+
+.status-warning {
+  background: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);
+  color: white;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sound-settings-card {
+    padding: 20px;
+  }
+
+  .sound-settings-card .card-body {
+    padding: 20px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .sound-select-container {
+    flex-direction: column;
+  }
+
+  .btn-preview {
+    width: 100%;
+  }
+}

@@ -25,9 +25,13 @@ CREATE TABLE users (
     random_reward_min DECIMAL(10, 2) DEFAULT NULL,
     random_reward_max DECIMAL(10, 2) DEFAULT NULL,
     sound_enabled BOOLEAN DEFAULT TRUE,
-    sound_type VARCHAR(50) DEFAULT 'threeTone',
-    countdown_sound_type VARCHAR(50) DEFAULT 'none',
+    code_sound VARCHAR(50) DEFAULT 'threeTone',
+    countdown_sound VARCHAR(50) DEFAULT 'tickTock',
+    code_sound_enabled BOOLEAN DEFAULT TRUE,
+    countdown_sound_enabled BOOLEAN DEFAULT TRUE,
+    countdown_sound_start_at INT DEFAULT 0,
     overlay_theme VARCHAR(50) DEFAULT 'neon',
+    twitch_display_name VARCHAR(255),
     next_code_time TIMESTAMPTZ DEFAULT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW()
 );

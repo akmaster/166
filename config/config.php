@@ -96,9 +96,30 @@ define('TWITCH_API_URL', 'https://api.twitch.tv/helix');
 // Default system values
 define('DEFAULT_REWARD_AMOUNT', 0.10);
 define('DEFAULT_CODE_DURATION', 30);
-define('DEFAULT_CODE_INTERVAL', 600);
+define('DEFAULT_CODE_INTERVAL', 600); // 10 minutes
 define('DEFAULT_COUNTDOWN_DURATION', 5);
 define('DEFAULT_PAYOUT_THRESHOLD', 5.00);
+
+// Minimum limits
+define('MIN_CODE_INTERVAL', 60); // 1 minute (cron frequency)
+define('MIN_CODE_DURATION', 1);
+define('MIN_COUNTDOWN_DURATION', 0);
+
+// Maximum limits (professional & realistic)
+define('MAX_CODE_DURATION', 3600);    // 1 hour (60 minutes)
+define('MAX_CODE_INTERVAL', 86400);   // 1 day (24 hours)
+define('MAX_COUNTDOWN_DURATION', 300); // 5 minutes
+
+// Available sounds
+define('AVAILABLE_CODE_SOUNDS', ['threeTone', 'successBell', 'gameCoin', 'digitalBlip', 'powerUp', 'notification', 'cheerful', 'simple', 'epic', 'gentle']);
+define('AVAILABLE_COUNTDOWN_SOUNDS', ['tickTock', 'click', 'beep', 'blip', 'snap', 'tap', 'ping', 'chirp', 'pop', 'tick']);
+
+// Asset version for cache busting
+define('ASSET_VERSION', '6.2.1');
+
+// Sound settings limits
+define('MIN_COUNTDOWN_SOUND_START_AT', 0);    // 0 = play every second
+define('MAX_COUNTDOWN_SOUND_START_AT', 300);  // Max 5 minutes (same as max countdown duration)
 
 // Cache directory
 define('CACHE_DIR', __DIR__ . '/../cache');

@@ -255,9 +255,12 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
         const SUPABASE_URL = '<?php echo SUPABASE_URL; ?>';
         const SUPABASE_ANON_KEY = '<?php echo SUPABASE_ANON_KEY; ?>';
         const STREAMER_ID = '<?php echo $streamer['id']; ?>';
-        const SOUND_ENABLED = <?php echo $streamer['sound_enabled'] ? 'true' : 'false'; ?>;
-        const SOUND_TYPE = '<?php echo $streamer['sound_type']; ?>';
-        const COUNTDOWN_SOUND_TYPE = '<?php echo $streamer['countdown_sound_type']; ?>';
+        const SOUND_ENABLED = <?php echo ($streamer['sound_enabled'] ?? true) ? 'true' : 'false'; ?>;
+        const SOUND_TYPE = '<?php echo $streamer['code_sound'] ?? 'threeTone'; ?>';
+        const COUNTDOWN_SOUND_TYPE = '<?php echo $streamer['countdown_sound'] ?? 'tickTock'; ?>';
+        const CODE_SOUND_ENABLED = <?php echo ($streamer['code_sound_enabled'] ?? true) ? 'true' : 'false'; ?>;
+        const COUNTDOWN_SOUND_ENABLED = <?php echo ($streamer['countdown_sound_enabled'] ?? true) ? 'true' : 'false'; ?>;
+        const COUNTDOWN_SOUND_START_AT = <?php echo (int)($streamer['countdown_sound_start_at'] ?? 0); ?>;
         
         // Initialize Supabase
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -292,7 +295,8 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
         
         // Play sound
         function playSound(type) {
-            if (!SOUND_ENABLED || !audioContext) return;
+            // Check master toggle AND code sound toggle
+            if (!SOUND_ENABLED || !CODE_SOUND_ENABLED || !audioContext) return;
             
             switch(type) {
                 case 'threeTone':
@@ -329,35 +333,39 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
         }
         
         function playCountdownSound(type) {
-            if (!SOUND_ENABLED || !audioContext || type === 'none') return;
+            // Check master toggle AND countdown sound toggle
+            if (!SOUND_ENABLED || !COUNTDOWN_SOUND_ENABLED || !audioContext) return;
             
             switch(type) {
                 case 'tickTock':
                     playTickTock(audioContext);
                     break;
-                case 'digitalBeep':
-                    playDigitalBeep(audioContext);
+                case 'click':
+                    playClick(audioContext);
                     break;
-                case 'drum':
-                    playDrum(audioContext);
+                case 'beep':
+                    playBeep(audioContext);
                     break;
-                case 'heartbeat':
-                    playHeartbeat(audioContext);
+                case 'blip':
+                    playBlip(audioContext);
                     break;
-                case 'countdown':
-                    playCountdown(audioContext);
+                case 'snap':
+                    playSnap(audioContext);
                     break;
-                case 'arcade':
-                    playArcade(audioContext);
+                case 'tap':
+                    playTap(audioContext);
                     break;
-                case 'tension':
-                    playTension(audioContext);
+                case 'ping':
+                    playPing(audioContext);
                     break;
-                case 'robot':
-                    playRobot(audioContext);
+                case 'chirp':
+                    playChirp(audioContext);
                     break;
-                case 'lastThree':
-                    playLastThree(audioContext);
+                case 'pop':
+                    playPop(audioContext);
+                    break;
+                case 'tick':
+                    playTick(audioContext);
                     break;
             }
         }
@@ -407,14 +415,23 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
             countdownNum.textContent = remaining;
             
             initAudio();
-            playCountdownSound(COUNTDOWN_SOUND_TYPE);
+            
+            // Play sound at start (if should start immediately)
+            if (COUNTDOWN_SOUND_START_AT === 0 || remaining <= COUNTDOWN_SOUND_START_AT) {
+                playCountdownSound(COUNTDOWN_SOUND_TYPE);
+            }
             
             countdownInterval = setInterval(() => {
                 remaining--;
                 countdownNum.textContent = remaining;
                 
-                if (remaining <= 3 && COUNTDOWN_SOUND_TYPE === 'lastThree') {
-                    playCountdownSound('lastThree');
+                // Play countdown sound based on start_at setting
+                if (remaining > 0) {
+                    // If start_at is 0, play every second
+                    // If start_at > 0, only play when remaining <= start_at
+                    if (COUNTDOWN_SOUND_START_AT === 0 || remaining <= COUNTDOWN_SOUND_START_AT) {
+                        playCountdownSound(COUNTDOWN_SOUND_TYPE);
+                    }
                 }
                 
                 if (remaining <= 0) {
@@ -497,8 +514,11 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
         }
         
         async function checkForCode() {
+            // Prevent multiple simultaneous checks
+            if (isProcessingCode) return;
+            
             try {
-                const response = await fetch(`/api/get-active-code.php?user_id=${STREAMER_ID}`);
+                const response = await fetch(`/api/get-active-code.php?user_id=${STREAMER_ID}&_t=${Date.now()}`);
                 const data = await response.json();
                 
                 if (data.success && data.data && data.data.has_code) {
@@ -506,6 +526,7 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
                     
                     // Check if it's a new code or resuming existing code
                     if (!lastCodeId || lastCodeId !== code.id) {
+                        isProcessingCode = true;
                         lastCodeId = code.id;
                         
                         // Use time_since_created from API (already calculated server-side)
@@ -521,10 +542,13 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
                         } else {
                             debug('Code expired or invalid time, ignoring');
                         }
+                        
+                        isProcessingCode = false;
                     }
                 }
             } catch (error) {
                 debug('Polling error', 'error');
+                isProcessingCode = false;
             }
         }
         

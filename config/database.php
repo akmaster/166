@@ -266,10 +266,10 @@ class Database {
         
         $code = $result['data'][0];
         
-        // Check if code is still within countdown + duration window
-        $createdAt = strtotime($code['created_at']);
-        $now = time();
-        $elapsed = $now - $createdAt;
+        // Check if code is still within countdown + duration window (USE UTC!)
+        $createdAt = new DateTime($code['created_at'], new DateTimeZone('UTC'));
+        $now = new DateTime('now', new DateTimeZone('UTC'));
+        $elapsed = $now->getTimestamp() - $createdAt->getTimestamp();
         $totalDuration = intval($code['countdown_duration']) + intval($code['duration']);
         
         if ($elapsed < $totalDuration) {

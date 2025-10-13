@@ -28,22 +28,29 @@ $db = new Database();
 // Find active code
 $codeResult = $db->select('codes', '*', [
     'code' => $code,
-    'is_active' => 'true',
-    'expires_at' => ['gt', date('c')]
+    'is_active' => 'true'
 ]);
 
 if (!$codeResult['success'] || empty($codeResult['data'])) {
-    jsonResponse(false, [], 'Kod bulunamadı veya süresi dolmuş');
+    jsonResponse(false, [], 'Kod bulunamadı');
 }
 
 $codeData = $codeResult['data'][0];
 $streamerId = $codeData['streamer_id'];
 $isBonusCode = isset($codeData['is_bonus_code']) && $codeData['is_bonus_code'] === true;
 
-// Check if countdown period
-$createdAt = strtotime($codeData['created_at']);
+// Check if code is still valid (using UTC time)
+$now = new DateTime('now', new DateTimeZone('UTC'));
+$createdAt = new DateTime($codeData['created_at'], new DateTimeZone('UTC'));
 $countdownDuration = intval($codeData['countdown_duration']);
-$timeSinceCreated = time() - $createdAt;
+$codeDuration = intval($codeData['duration']);
+$timeSinceCreated = $now->getTimestamp() - $createdAt->getTimestamp();
+
+// Check if code expired (countdown + duration)
+$totalDuration = $countdownDuration + $codeDuration;
+if ($timeSinceCreated >= $totalDuration) {
+    jsonResponse(false, [], 'Kodun süresi dolmuş');
+}
 
 if ($timeSinceCreated < $countdownDuration) {
     $remaining = $countdownDuration - $timeSinceCreated;
@@ -108,7 +115,10 @@ logDebug('Code submitted', [
     'code' => $code,
     'reward' => $rewardAmount,
     'is_bonus_code' => $isBonusCode,
-    'balance_deducted' => !$isBonusCode
+    'balance_deducted' => !$isBonusCode,
+    'time_since_created' => $timeSinceCreated,
+    'total_duration' => $totalDuration,
+    'remaining_time' => $totalDuration - $timeSinceCreated
 ]);
 
 jsonResponse(true, [
