@@ -1,0 +1,145 @@
+.random-reward-component {
+  background: var(--card-bg, #18181b);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.random-reward-component h3 {
+  margin: 0 0 24px 0;
+  color: var(--text-primary, #efeff1);
+  font-size: 1.5rem;
+}
+
+.toggle-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.toggle-label {
+  color: var(--text-primary, #efeff1);
+  font-size: 1.1rem;
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary, #9147ff);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Random Settings */
+.random-settings {
+  margin-bottom: 20px;
+}
+
+.range-inputs {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.input-group {
+  flex: 1;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-primary, #efeff1);
+  font-weight: 600;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  background: var(--dark, #0e0e10);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: var(--text-primary, #efeff1);
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--primary, #9147ff);
+}
+
+.range-separator {
+  font-size: 1.5rem;
+  color: var(--text-secondary, #adadb8);
+  padding-bottom: 12px;
+}
+
+.info-box {
+  padding: 16px;
+  background: rgba(145, 71, 255, 0.1);
+  border-left: 4px solid var(--primary, #9147ff);
+  border-radius: 4px;
+}
+
+.info-box p {
+  margin: 0;
+  color: var(--text-secondary, #adadb8);
+}
+
+.info-box p + p {
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .range-inputs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .range-separator {
+    display: none;
+  }
+}

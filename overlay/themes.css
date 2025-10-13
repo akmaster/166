@@ -1,0 +1,123 @@
+/* 20 Overlay Themes */
+
+/* Game Themes */
+.theme-valorant {
+  --theme-primary: #ff4655;
+  --theme-secondary: #0f1923;
+  --theme-accent: #ff4655;
+}
+
+.theme-league {
+  --theme-primary: #0bc6e3;
+  --theme-secondary: #0397ab;
+  --theme-accent: #c89b3c;
+}
+
+.theme-csgo {
+  --theme-primary: #f5a623;
+  --theme-secondary: #2f3336;
+  --theme-accent: #f5a623;
+}
+
+.theme-dota2 {
+  --theme-primary: #af1f28;
+  --theme-secondary: #1a1a1a;
+  --theme-accent: #af1f28;
+}
+
+.theme-pubg {
+  --theme-primary: #f2a900;
+  --theme-secondary: #000000;
+  --theme-accent: #f2a900;
+}
+
+.theme-fortnite {
+  --theme-primary: #00d5f5;
+  --theme-secondary: #9b4dff;
+  --theme-accent: #ffc800;
+}
+
+.theme-apex {
+  --theme-primary: #ff3333;
+  --theme-secondary: #000000;
+  --theme-accent: #ff3333;
+}
+
+.theme-minecraft {
+  --theme-primary: #62c14e;
+  --theme-secondary: #3f2f1f;
+  --theme-accent: #62c14e;
+}
+
+.theme-gta {
+  --theme-primary: #00e676;
+  --theme-secondary: #000000;
+  --theme-accent: #00e676;
+}
+
+.theme-fifa {
+  --theme-primary: #00d4aa;
+  --theme-secondary: #0e3b49;
+  --theme-accent: #00d4aa;
+}
+
+/* Color Themes */
+.theme-neon {
+  --theme-primary: #9147ff;
+  --theme-secondary: #00b8d4;
+  --theme-accent: #00d4aa;
+}
+
+.theme-sunset {
+  --theme-primary: #ff6b6b;
+  --theme-secondary: #feca57;
+  --theme-accent: #ee5a6f;
+}
+
+.theme-ocean {
+  --theme-primary: #0984e3;
+  --theme-secondary: #00b894;
+  --theme-accent: #74b9ff;
+}
+
+.theme-purple {
+  --theme-primary: #a29bfe;
+  --theme-secondary: #6c5ce7;
+  --theme-accent: #a29bfe;
+}
+
+.theme-cherry {
+  --theme-primary: #fd79a8;
+  --theme-secondary: #e17055;
+  --theme-accent: #fd79a8;
+}
+
+.theme-minimal {
+  --theme-primary: #ffffff;
+  --theme-secondary: #ecf0f1;
+  --theme-accent: #95a5a6;
+}
+
+.theme-dark {
+  --theme-primary: #2d3436;
+  --theme-secondary: #000000;
+  --theme-accent: #636e72;
+}
+
+.theme-sakura {
+  --theme-primary: #ff6b9d;
+  --theme-secondary: #ffeaa7;
+  --theme-accent: #ff6b9d;
+}
+
+.theme-cyber {
+  --theme-primary: #00fff5;
+  --theme-secondary: #ff00ff;
+  --theme-accent: #00fff5;
+}
+
+.theme-arctic {
+  --theme-primary: #dfe6e9;
+  --theme-secondary: #74b9ff;
+  --theme-accent: #0984e3;
+}

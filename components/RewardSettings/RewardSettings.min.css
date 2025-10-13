@@ -1,0 +1,70 @@
+.reward-settings-component {
+  background: var(--card-bg, #18181b);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.reward-settings-component h3 {
+  margin: 0 0 24px 0;
+  color: var(--text-primary, #efeff1);
+  font-size: 1.5rem;
+}
+.reward-input-group {
+  margin-bottom: 20px;
+}
+.reward-input-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-primary, #efeff1);
+  font-weight: 600;
+}
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-wrapper input {
+  flex: 1;
+  padding: 14px 50px 14px 14px;
+  background: var(--dark, #0e0e10);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: var(--text-primary, #efeff1);
+  font-size: 1.2rem;
+  transition: border-color 0.3s;
+}
+.input-wrapper input:focus {
+  outline: 0;
+  border-color: var(--primary, #9147ff);
+}
+.currency-symbol {
+  position: absolute;
+  right: 14px;
+  color: var(--text-secondary, #adadb8);
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.reward-input-group small {
+  display: block;
+  margin-top: 8px;
+  color: var(--text-secondary, #adadb8);
+  font-size: 0.85rem;
+}
+.current-balance {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(0, 212, 170, 0.1);
+  border-left: 4px solid var(--success, #00d4aa);
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.current-balance strong {
+  color: var(--text-primary, #efeff1);
+}
+.balance-amount {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--success, #00d4aa);
+}
