@@ -1,6 +1,6 @@
 # 🎮 TWITCH CODE REWARD SYSTEM - COMPLETE REFERENCE
 
-**Version:** 6.2 (Smart Countdown Sound)  
+**Version:** 6.3 (Dashboard Refactor)  
 **Date:** October 2025  
 **Purpose:** Ultra-detailed prompt for AI to build complete system  
 **Total Lines:** ~5000+  
@@ -205,11 +205,15 @@ function getActiveCode($streamerId) {
 ```
 twitch-code-reward/
 │
-├── 📄 index.php                    # Ana dashboard
+├── 📄 index.php                    # Landing page (giriş yapmamış)
 ├── 📄 streamers.php                # Canlı yayıncılar
 ├── 📄 callback.php                 # Twitch OAuth callback
 ├── 📄 cron.php                     # Otomatik kod üretimi
 ├── 📄 .env                         # Konfigürasyon
+│
+├── 📂 dashboard/                   # Kullanıcı dashboard
+│   ├── index.php                   # Dashboard sayfası
+│   └── .htaccess                   # URL rewriting
 │
 ├── 📂 config/                      # Konfigürasyon
 │   ├── config.php                  # Ana config
@@ -258,8 +262,8 @@ twitch-code-reward/
     └── js/
 ```
 
-**Total Files:** ~88 files  
-**Critical:** `.env`, `config/database.php`, `database/schema.sql`, `cron.php`, `overlay/index.php`
+**Total Files:** ~90 files  
+**Critical:** `.env`, `config/database.php`, `database/schema.sql`, `cron.php`, `overlay/index.php`, `dashboard/index.php`
 
 ---
 
@@ -865,6 +869,14 @@ formatDuration($seconds)    // "1h 5m 30s"
 
 ## 📝 CHANGELOG
 
+### v6.3 (Oct 2025) - Dashboard Refactor
+
+- ✅ Dashboard klasörüne taşındı (`/dashboard/`)
+- ✅ Landing page ayrıldı (root `index.php`)
+- ✅ URL yapısı: `/dashboard/username` (session-based)
+- ✅ Login sonrası otomatik dashboard yönlendirme
+- ✅ Component yolları güncellendi
+
 ### v6.2 (Oct 2025) - Smart Countdown Sound
 
 - ✅ Countdown sound start time setting (0-300s)
@@ -950,7 +962,7 @@ formatDuration($seconds)    // "1h 5m 30s"
 
 ## 📊 STATISTICS
 
-- **Total Files:** ~88
+- **Total Files:** ~90
 - **Total Lines:** ~15,000+
 - **Components:** 5
 - **API Endpoints:** 16
@@ -989,6 +1001,6 @@ formatDuration($seconds)    // "1h 5m 30s"
 Total Length: ~5000+ lines  
 Coverage: 100% of system  
 Ready for: AI implementation  
-Version: 6.2 Production Ready
+Version: 6.3 Production Ready
 
 **🚀 Give this file to any AI and they can build the complete system!**

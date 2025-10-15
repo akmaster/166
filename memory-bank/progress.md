@@ -43,12 +43,14 @@
 
 ### Phase 4: Main Pages ✅ (100%)
 
-- [x] `index.php` - Landing + Dashboard
+- [x] `index.php` - Landing page (giriş yapmamış)
+- [x] `dashboard/index.php` - Kullanıcı dashboard
+- [x] `dashboard/.htaccess` - URL rewriting
 - [x] `streamers.php` - Live streamers page
 - [x] `callback.php` - OAuth callback
-- [x] **YENİ:** Streamers page modern dark theme
-- [x] **YENİ:** Promo overlay card (top-left banner)
-- [x] **YENİ:** Skeleton loading states
+- [x] **YENİ:** Dashboard klasörüne taşındı
+- [x] **YENİ:** Landing page ayrıldı
+- [x] **YENİ:** URL yapısı: `/dashboard/username`
 
 ### Phase 5: OBS Overlay ✅ (100%)
 
@@ -116,20 +118,20 @@
 
 **Dosya İstatistikleri:**
 
-- PHP dosyaları: 35+
+- PHP dosyaları: 37+
 - CSS dosyaları: 12 (6 source + 6 minified)
 - JS dosyaları: 10 (5 source + 5 minified)
 - SQL dosyaları: 2 (schema + migration)
 - Documentation: 7 (README + 6 memory bank)
-- **Toplam:** 66+ dosya
+- **Toplam:** 68+ dosya
 
 **Kod Satırları (tahmini):**
 
-- PHP: ~5,200 satır
+- PHP: ~5,400 satır
 - SQL: ~250 satır
 - CSS: ~3,000 satır
 - JavaScript: ~2,000 satır
-- **Toplam:** ~10,450 satır
+- **Toplam:** ~10,650 satır
 
 ## 🎯 Kalan İşler
 
@@ -165,13 +167,12 @@
 6. Error handling mevcut
 7. Debug mode aktif (production'da kapatılmalı)
 
-## 🚀 Deployment Readiness: %95
+## 🚀 Deployment Readiness: %98
 
 **Eksik:**
 
 - Production deployment (kullanıcı tarafında)
 - Real-world testing
-- Performance tuning (optional)
 
 **Hazır:**
 
@@ -183,3 +184,5 @@
 - Cache system ✅
 - Admin panel ✅
 - Automation ✅
+- Dashboard refactor ✅
+- URL structure optimized ✅

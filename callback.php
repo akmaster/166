@@ -89,6 +89,6 @@ $_SESSION['twitch_username'] = $twitchUser['login'];
 $_SESSION['twitch_avatar'] = $twitchUser['profile_image_url'];
 
 // Redirect to dashboard
-header('Location: ' . APP_URL);
+header('Location: ' . APP_URL . '/dashboard/');
 exit;
 
