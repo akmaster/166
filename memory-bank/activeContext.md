@@ -15,12 +15,14 @@ Tüm temel özellikler uygulandı ve test edilmeye hazır.
 - 17+ index tanımlandı
 - Varsayılan ayarlar eklendi
 - Realtime için hazır
+- **YENİ:** `received_first_code` ve `is_welcome_code` kolonları eklendi
 
 ### 2. Core Configuration ✅
 
 - `config/config.php`: .env loader, constants, session
 - `config/database.php`: Supabase REST API wrapper class
 - `config/helpers.php`: 30+ utility function
+- **YENİ:** `getLiveStreamers()` fonksiyonu eklendi (2dk cache)
 
 ### 3. API Endpoints (15 dosya) ✅
 
@@ -46,6 +48,8 @@ Her component: PHP + CSS + min.CSS + JS + min.JS
 - `index.php`: Landing page + Dashboard (tab system)
 - `streamers.php`: Live streamers listesi
 - `callback.php`: Twitch OAuth callback handler
+- **YENİ:** Streamers sayfası modern dark tema ile yenilendi
+- **YENİ:** Sol üst köşede promo overlay kartı eklendi
 
 ### 6. OBS Overlay System ✅
 
@@ -55,6 +59,7 @@ Her component: PHP + CSS + min.CSS + JS + min.JS
 - 3D card flip animasyonu
 - Countdown + Duration logic
 - Debug panel (DEBUG_MODE)
+- **YENİ:** İlk kod için "İyi Yayınlar! 🎉" mesajı
 
 ### 7. Admin Panel (7 sayfa) ✅
 
@@ -81,6 +86,8 @@ Her component: PHP + CSS + min.CSS + JS + min.JS
 - Validates balance
 - Creates codes
 - Updates next time
+- **YENİ:** Sadece yayında olan yayıncılara kod üretir
+- **YENİ:** İlk kod için "İyi Yayınlar! 🎉" mesajı
 
 ### 10. Documentation ✅
 
@@ -206,3 +213,29 @@ Her component: PHP + CSS + min.CSS + JS + min.JS
 ## Current Focus
 
 Proje tamamlandı. Production deployment ve test aşamasında.
+
+## Son Güncellemeler (Ocak 2025)
+
+### Live Streamer Code Generation ✅
+
+- **Database Migration:** `add_first_stream_code.sql` oluşturuldu
+- **Schema Update:** `received_first_code` ve `is_welcome_code` kolonları eklendi
+- **Live Streamer Filtering:** Sadece yayında olan yayıncılara kod üretilir
+- **Welcome Code System:** İlk kod için özel mesaj sistemi
+- **Twitch API Integration:** 2 dakika cache ile live streamer kontrolü
+
+### Streamers Page Modernization ✅
+
+- **Dark Theme:** Modern, 3D efektli dark tema
+- **Glassmorphism:** Şeffaf, bulanık efektler
+- **Animations:** Hover efektleri ve geçişler
+- **Skeleton Loading:** Yükleme durumu animasyonları
+- **Promo Overlay Card:** Sol üst köşede sabit banner kartı
+- **Responsive Design:** Mobil uyumlu tasarım
+
+### Technical Improvements ✅
+
+- **Performance:** File-based cache optimizasyonu
+- **UX:** Skeleton loading states
+- **Visual:** 3D card effects ve gradient backgrounds
+- **Accessibility:** Better contrast ve readability

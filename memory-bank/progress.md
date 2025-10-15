@@ -46,6 +46,9 @@
 - [x] `index.php` - Landing + Dashboard
 - [x] `streamers.php` - Live streamers page
 - [x] `callback.php` - OAuth callback
+- [x] **YENİ:** Streamers page modern dark theme
+- [x] **YENİ:** Promo overlay card (top-left banner)
+- [x] **YENİ:** Skeleton loading states
 
 ### Phase 5: OBS Overlay ✅ (100%)
 
@@ -56,6 +59,7 @@
 - [x] 3D card flip animation
 - [x] Web Audio API implementation
 - [x] Debug panel
+- [x] **YENİ:** Welcome code message ("İyi Yayınlar! 🎉")
 
 ### Phase 6: Admin Panel ✅ (100%)
 
@@ -86,6 +90,9 @@
 - [x] Balance validation
 - [x] Next time calculation
 - [x] Logging system
+- [x] **YENİ:** Live streamer filtering (Twitch API)
+- [x] **YENİ:** Welcome code system (first code detection)
+- [x] **YENİ:** Database migration for first_code tracking
 
 ### Phase 9: Documentation ✅ (100%)
 
@@ -112,17 +119,17 @@
 - PHP dosyaları: 35+
 - CSS dosyaları: 12 (6 source + 6 minified)
 - JS dosyaları: 10 (5 source + 5 minified)
-- SQL dosyaları: 1
+- SQL dosyaları: 2 (schema + migration)
 - Documentation: 7 (README + 6 memory bank)
-- **Toplam:** 65+ dosya
+- **Toplam:** 66+ dosya
 
 **Kod Satırları (tahmini):**
 
-- PHP: ~5,000 satır
-- SQL: ~200 satır
-- CSS: ~2,500 satır
+- PHP: ~5,200 satır
+- SQL: ~250 satır
+- CSS: ~3,000 satır
 - JavaScript: ~2,000 satır
-- **Toplam:** ~9,700 satır
+- **Toplam:** ~10,450 satır
 
 ## 🎯 Kalan İşler
 
