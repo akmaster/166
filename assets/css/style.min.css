@@ -434,8 +434,7 @@ select:focus {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 20%, rgba(145, 71, 255, 0.15) 0%, transparent 50%),
+  background: radial-gradient(circle at 20% 20%, rgba(145, 71, 255, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 80% 80%, rgba(0, 184, 212, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 40% 60%, rgba(255, 71, 87, 0.1) 0%, transparent 50%);
   pointer-events: none;
@@ -448,8 +447,7 @@ select:focus {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    linear-gradient(45deg, transparent 30%, rgba(145, 71, 255, 0.03) 50%, transparent 70%),
+  background: linear-gradient(45deg, transparent 30%, rgba(145, 71, 255, 0.03) 50%, transparent 70%),
     linear-gradient(-45deg, transparent 30%, rgba(0, 184, 212, 0.03) 50%, transparent 70%);
   pointer-events: none;
 }
@@ -488,7 +486,7 @@ select:focus {
 
 .page-header p {
   font-size: 1.3rem;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
   font-weight: 300;
   letter-spacing: 0.5px;
 }
@@ -533,9 +531,7 @@ select:focus {
   border-radius: 24px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.05),
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
@@ -549,10 +545,12 @@ select:focus {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, 
-    rgba(145, 71, 255, 0.1) 0%, 
-    rgba(0, 184, 212, 0.1) 50%, 
-    rgba(255, 71, 87, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(145, 71, 255, 0.1) 0%,
+    rgba(0, 184, 212, 0.1) 50%,
+    rgba(255, 71, 87, 0.1) 100%
+  );
   opacity: 0;
   transition: opacity 0.5s ease;
   border-radius: 24px;
@@ -574,15 +572,18 @@ select:focus {
 }
 
 @keyframes borderGlow {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .streamer-card:hover {
   transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
-  box-shadow: 
-    0 30px 60px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.1),
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
@@ -629,25 +630,20 @@ select:focus {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 2px;
-  box-shadow: 
-    0 8px 25px rgba(255, 71, 87, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
   animation: livePulse 2s ease-in-out infinite;
   backdrop-filter: blur(10px);
 }
 
 @keyframes livePulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
-    box-shadow: 
-      0 8px 25px rgba(255, 71, 87, 0.4),
-      0 0 0 1px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
   }
   50% {
     transform: scale(1.05);
-    box-shadow: 
-      0 12px 35px rgba(255, 71, 87, 0.6),
-      0 0 0 2px rgba(255, 255, 255, 0.2),
+    box-shadow: 0 12px 35px rgba(255, 71, 87, 0.6), 0 0 0 2px rgba(255, 255, 255, 0.2),
       0 0 20px rgba(255, 71, 87, 0.3);
   }
 }
@@ -687,9 +683,7 @@ select:focus {
   height: 64px;
   border-radius: 50%;
   border: 3px solid rgba(145, 71, 255, 0.5);
-  box-shadow: 
-    0 8px 25px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.1),
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
@@ -759,9 +753,7 @@ select:focus {
   text-transform: uppercase;
   letter-spacing: 2px;
   border-radius: 50px;
-  box-shadow: 
-    0 8px 25px rgba(145, 71, 255, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 25px rgba(145, 71, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
   overflow: hidden;
@@ -780,9 +772,7 @@ select:focus {
 
 .streamer-card .btn-primary:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 
-    0 12px 35px rgba(145, 71, 255, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 35px rgba(145, 71, 255, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.2);
   background-position: 100% 0;
 }
 
@@ -928,16 +918,16 @@ select:focus {
     gap: 2rem;
     padding: 0 1rem;
   }
-  
+
   .page-header {
     padding: 3rem 0 2rem;
   }
-  
+
   .page-header h1 {
     font-size: 2.5rem;
     letter-spacing: -1px;
   }
-  
+
   .page-header p {
     font-size: 1.1rem;
   }
@@ -979,11 +969,11 @@ select:focus {
     padding: 0 0.5rem;
     gap: 1.5rem;
   }
-  
+
   .page-header h1 {
     font-size: 2rem;
   }
-  
+
   .streamer-card .btn-primary {
     padding: 12px 24px;
     font-size: 0.9rem;
