@@ -383,9 +383,19 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
             
             const countdownDuration = parseInt(code.countdown_duration);
             const codeDuration = parseInt(code.duration);
+            const isWelcome = code.is_welcome_code === true;
             
             document.getElementById('debug-countdown').textContent = countdownDuration + 's';
             document.getElementById('debug-duration').textContent = codeDuration + 's';
+            
+            // Update code label based on welcome status
+            const codeLabel = document.querySelector('.code-label');
+            if (isWelcome) {
+                codeLabel.textContent = 'İyi Yayınlar! 🎉';
+                debug('Welcome code detected - showing special message');
+            } else {
+                codeLabel.textContent = 'Kodu Gir!';
+            }
             
             // Show the card container
             const card = document.getElementById('codeCard');
@@ -393,15 +403,15 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
             
             // Start countdown
             if (countdownDuration > 0) {
-                startCountdown(countdownDuration, code.code, codeDuration);
+                startCountdown(countdownDuration, code.code, codeDuration, isWelcome);
             } else {
                 // No countdown, show code immediately
-                showCode(code.code, codeDuration);
+                showCode(code.code, codeDuration, isWelcome);
             }
         }
         
         // Start countdown
-        function startCountdown(duration, code, codeDuration) {
+        function startCountdown(duration, code, codeDuration, isWelcome = false) {
             // Clear any existing timers
             if (countdownInterval) clearInterval(countdownInterval);
             if (durationInterval) clearTimeout(durationInterval);
@@ -436,13 +446,13 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
                 
                 if (remaining <= 0) {
                     clearInterval(countdownInterval);
-                    showCode(code, codeDuration);
+                    showCode(code, codeDuration, isWelcome);
                 }
             }, 1000);
         }
         
         // Show code
-        function showCode(code, duration) {
+        function showCode(code, duration, isWelcome = false) {
             // Clear any existing timers
             if (countdownInterval) clearInterval(countdownInterval);
             if (durationInterval) clearTimeout(durationInterval);
@@ -456,7 +466,7 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
             setTimeout(() => {
                 card.classList.add('flipped');
                 playSound(SOUND_TYPE);
-                debug('Code showing: ' + code);
+                debug('Code showing: ' + code + (isWelcome ? ' (Welcome Code)' : ''));
             }, 100);
             
             // Hide after duration
@@ -534,11 +544,12 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
                         const countdownDuration = parseInt(code.countdown_duration);
                         const codeDuration = parseInt(code.duration);
                         const totalDuration = countdownDuration + codeDuration;
+                        const isWelcome = code.is_welcome_code === true;
                         
                         // Check if code is still valid
                         if (elapsedSeconds >= 0 && elapsedSeconds < totalDuration) {
                             debug('Code found, resuming from ' + elapsedSeconds + 's');
-                            resumeCode(code, elapsedSeconds);
+                            resumeCode(code, elapsedSeconds, isWelcome);
                         } else {
                             debug('Code expired or invalid time, ignoring');
                         }
@@ -553,7 +564,7 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
         }
         
         // Resume code from specific time
-        function resumeCode(code, elapsedSeconds) {
+        function resumeCode(code, elapsedSeconds, isWelcome = false) {
             currentCode = code;
             
             const countdownDuration = parseInt(code.countdown_duration);
@@ -562,6 +573,14 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
             document.getElementById('debug-countdown').textContent = countdownDuration + 's';
             document.getElementById('debug-duration').textContent = codeDuration + 's';
             
+            // Update code label based on welcome status
+            const codeLabel = document.querySelector('.code-label');
+            if (isWelcome) {
+                codeLabel.textContent = 'İyi Yayınlar! 🎉';
+            } else {
+                codeLabel.textContent = 'Kodu Gir!';
+            }
+            
             const card = document.getElementById('codeCard');
             card.classList.add('visible');
             
@@ -569,13 +588,13 @@ $effectiveTheme = !empty($theme) ? $theme : $streamer['overlay_theme'];
             if (elapsedSeconds < countdownDuration) {
                 const remainingCountdown = countdownDuration - elapsedSeconds;
                 debug('Resuming countdown: ' + remainingCountdown + 's left');
-                startCountdown(remainingCountdown, code.code, codeDuration);
+                startCountdown(remainingCountdown, code.code, codeDuration, isWelcome);
             } 
             // In code display phase
             else if (elapsedSeconds < (countdownDuration + codeDuration)) {
                 const remainingCodeTime = (countdownDuration + codeDuration) - elapsedSeconds;
                 debug('Resuming code display: ' + remainingCodeTime + 's left');
-                showCode(code.code, remainingCodeTime);
+                showCode(code.code, remainingCodeTime, isWelcome);
             }
         }
         

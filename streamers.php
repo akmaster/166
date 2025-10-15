@@ -16,7 +16,7 @@ $user = $isLoggedIn ? getCurrentUser() : null;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Canlı Yayıncılar - Rumb</title>
-    <link rel="stylesheet" href="<?php echo asset('css/style.min.css'); ?>">
+    <link rel="stylesheet" href="<?php echo asset('css/style.css'); ?>">
 </head>
 <body>
     
@@ -71,9 +71,33 @@ $user = $isLoggedIn ? getCurrentUser() : null;
     </footer>
     
     <script>
+        // Show skeleton cards during loading
+        function showSkeletonCards() {
+            const grid = document.getElementById('streamers-grid');
+            grid.style.display = 'grid';
+            grid.innerHTML = '';
+            
+            for (let i = 0; i < 6; i++) {
+                const skeleton = document.createElement('div');
+                skeleton.className = 'streamer-card skeleton-card';
+                skeleton.innerHTML = `
+                    <div class="skeleton-thumbnail"></div>
+                    <div class="streamer-info">
+                        <div class="skeleton-text skeleton-title"></div>
+                        <div class="skeleton-text skeleton-subtitle"></div>
+                        <div class="skeleton-button"></div>
+                    </div>
+                `;
+                grid.appendChild(skeleton);
+            }
+        }
+        
         // Fetch and display live streamers
         async function loadStreamers() {
             try {
+                // Show skeleton loading immediately
+                showSkeletonCards();
+                
                 const response = await fetch('/api/get-live-streamers.php');
                 const data = await response.json();
                 
@@ -82,10 +106,12 @@ $user = $isLoggedIn ? getCurrentUser() : null;
                 if (data.success && data.data.length > 0) {
                     displayStreamers(data.data);
                 } else {
+                    document.getElementById('streamers-grid').style.display = 'none';
                     document.getElementById('no-streamers').style.display = 'block';
                 }
             } catch (error) {
                 document.getElementById('streamers-loading').style.display = 'none';
+                document.getElementById('streamers-grid').style.display = 'none';
                 document.getElementById('no-streamers').style.display = 'block';
             }
         }

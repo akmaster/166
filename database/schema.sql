@@ -33,6 +33,7 @@ CREATE TABLE users (
     overlay_theme VARCHAR(50) DEFAULT 'neon',
     twitch_display_name VARCHAR(255),
     next_code_time TIMESTAMPTZ DEFAULT NULL,
+    received_first_code BOOLEAN DEFAULT false,
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -45,6 +46,7 @@ CREATE TABLE codes (
     code VARCHAR(6) NOT NULL,
     is_active BOOLEAN DEFAULT TRUE,
     is_bonus_code BOOLEAN DEFAULT FALSE,
+    is_welcome_code BOOLEAN DEFAULT FALSE,
     expires_at TIMESTAMPTZ NOT NULL,
     duration INT DEFAULT 30,
     countdown_duration INT DEFAULT 5,
@@ -57,6 +59,7 @@ CREATE INDEX idx_codes_active ON codes(is_active) WHERE is_active = TRUE;
 CREATE INDEX idx_codes_expires_at ON codes(expires_at);
 CREATE INDEX idx_codes_code ON codes(code);
 CREATE INDEX idx_codes_streamer_active ON codes(streamer_id, is_active) WHERE is_active = TRUE;
+CREATE INDEX idx_codes_welcome_code ON codes(streamer_id, is_welcome_code, is_active);
 
 -- =====================================================
 -- 3. SUBMISSIONS TABLE
@@ -136,6 +139,7 @@ INSERT INTO settings (key, value) VALUES
 CREATE INDEX idx_users_overlay_token ON users(overlay_token);
 CREATE INDEX idx_users_next_code_time ON users(next_code_time);
 CREATE INDEX idx_users_twitch_user_id ON users(twitch_user_id);
+CREATE INDEX idx_users_first_code ON users(received_first_code, next_code_time);
 
 -- =====================================================
 -- ENABLE REALTIME FOR CODES TABLE

@@ -47,6 +47,19 @@ if (!$usersResult['success']) {
 $users = $usersResult['data'];
 $log[] = 'Found ' . count($users) . ' user(s) ready for new code';
 
+// Get live streamers and filter users
+$liveStreamerIds = getLiveStreamers($db);
+$log[] = 'Found ' . count($liveStreamerIds) . ' live streamer(s)';
+
+// Filter users to only include live streamers
+$originalCount = count($users);
+$users = array_filter($users, function($user) use ($liveStreamerIds) {
+    return in_array($user['id'], $liveStreamerIds);
+});
+$users = array_values($users); // Re-index array
+
+$log[] = "Filtered to {$originalCount} -> " . count($users) . " live streamer(s) for code generation";
+
 // Process each user
 $codesGenerated = 0;
 foreach ($users as $user) {
@@ -82,6 +95,9 @@ foreach ($users as $user) {
         'is_active' => 'true'
     ]);
     
+    // Check if this is first code for streamer
+    $isFirstCode = !$user['received_first_code'];
+    
     // Generate new code (MUST use UTC!)
     $code = generateCode();
     $now = new DateTime('now', new DateTimeZone('UTC'));
@@ -92,6 +108,7 @@ foreach ($users as $user) {
         'code' => $code,
         'is_active' => true,
         'is_bonus_code' => false, // Automatic cron codes are NOT bonus (balance will be deducted)
+        'is_welcome_code' => $isFirstCode, // Mark as welcome code if first time
         'expires_at' => $expiresAt->format('Y-m-d\TH:i:s.u\Z'),
         'duration' => $codeDuration,
         'countdown_duration' => $countdownDuration,
@@ -103,7 +120,18 @@ foreach ($users as $user) {
         $log[] = "    - Created at: " . $now->format('Y-m-d H:i:s');
         $log[] = "    - Expires at: " . $expiresAt->format('Y-m-d H:i:s');
         $log[] = "    - Countdown: {$countdownDuration}s, Duration: {$codeDuration}s";
+        if ($isFirstCode) {
+            $log[] = "    - WELCOME CODE: First code for this streamer! 🎉";
+        }
         $codesGenerated++;
+        
+        // If first code, update user to mark as received
+        if ($isFirstCode) {
+            $db->update('users', [
+                'received_first_code' => true
+            ], ['id' => $userId]);
+            $log[] = "  User marked as received first code";
+        }
         
         // Update next_code_time (UTC)
         $nextCodeTime = (new DateTime('now', new DateTimeZone('UTC')))->modify("+{$codeInterval} seconds");

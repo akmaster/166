@@ -288,6 +288,63 @@ function getStreamInfo($twitchUserId) {
 }
 
 /**
+ * Get live streamers from database (with caching)
+ * Returns array of live streamer IDs
+ */
+function getLiveStreamers($db) {
+    // Check cache (2 minutes = 120 seconds)
+    $cacheKey = 'live_streamers';
+    $cached = getFileCache($cacheKey, 120);
+    if ($cached !== null) {
+        return $cached;
+    }
+    
+    // Get all users from database
+    $usersResult = $db->select('users', 'id,twitch_user_id');
+    if (!$usersResult['success'] || empty($usersResult['data'])) {
+        return [];
+    }
+    
+    $users = $usersResult['data'];
+    $liveStreamerIds = [];
+    
+    // Get Twitch app token
+    $token = getTwitchAppToken();
+    if (!$token) {
+        return [];
+    }
+    
+    // Get stream info for all users (batch request)
+    $userIds = array_map(function($user) { return $user['twitch_user_id']; }, $users);
+    
+    // Twitch API allows max 100 IDs per request
+    $batches = array_chunk($userIds, 100);
+    
+    foreach ($batches as $batch) {
+        $streamData = callTwitchAPI('streams', ['user_id' => $batch], $token);
+        
+        if ($streamData && isset($streamData['data'])) {
+            foreach ($streamData['data'] as $stream) {
+                // Find user in our database
+                $user = array_filter($users, function($u) use ($stream) {
+                    return $u['twitch_user_id'] === $stream['user_id'];
+                });
+                
+                if (!empty($user)) {
+                    $user = array_values($user)[0];
+                    $liveStreamerIds[] = $user['id'];
+                }
+            }
+        }
+    }
+    
+    // Cache the result for 2 minutes
+    setFileCache($cacheKey, $liveStreamerIds, 120);
+    
+    return $liveStreamerIds;
+}
+
+/**
  * Get effective setting for user
  * Returns custom value if set, otherwise system default
  */
