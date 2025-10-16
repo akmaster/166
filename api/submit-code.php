@@ -9,20 +9,25 @@ require_once __DIR__ . '/../config/config.php';
 
 header('Content-Type: application/json');
 
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     jsonResponse(false, [], 'Invalid request method', 405);
 }
 
-$code = sanitize($_POST['code'] ?? '');
+try {
+    $code = sanitize($_POST['code'] ?? '');
 
-// Check if user is logged in
-$isLoggedIn = isLoggedIn();
-$userId = $isLoggedIn ? getCurrentUserId() : null;
+    // Check if user is logged in
+    $isLoggedIn = isLoggedIn();
+    $userId = $isLoggedIn ? getCurrentUserId() : null;
 
-// Validate code format
-if (!isValidCode($code)) {
-    jsonResponse(false, [], 'Geçersiz kod formatı (6 haneli rakam olmalı)');
-}
+    // Validate code format
+    if (!isValidCode($code)) {
+        jsonResponse(false, [], 'Geçersiz kod formatı (6 haneli rakam olmalı)', 200, 'invalid_code');
+    }
 
 $db = new Database();
 
@@ -127,8 +132,16 @@ logDebug('Code submitted', [
     'remaining_time' => $totalDuration - $timeSinceCreated
 ]);
 
-jsonResponse(true, [
-    'reward_amount' => $rewardAmount,
-    'formatted_amount' => formatCurrency($rewardAmount)
-], 'Tebrikler! ' . formatCurrency($rewardAmount) . ' kazandınız!');
+    jsonResponse(true, [
+        'reward_amount' => $rewardAmount,
+        'formatted_amount' => formatCurrency($rewardAmount)
+    ], 'Tebrikler! ' . formatCurrency($rewardAmount) . ' kazandınız!');
+
+} catch (Exception $e) {
+    // Log the error for debugging
+    error_log('Submit Code API Error: ' . $e->getMessage());
+    error_log('Stack trace: ' . $e->getTraceAsString());
+    
+    jsonResponse(false, [], 'Bir hata oluştu: ' . $e->getMessage(), 500, 'server_error');
+}
 

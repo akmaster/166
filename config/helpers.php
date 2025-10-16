@@ -73,14 +73,20 @@ function getCurrentUser() {
 /**
  * JSON response
  */
-function jsonResponse($success, $data = [], $message = '', $code = 200) {
+function jsonResponse($success, $data = [], $message = '', $code = 200, $error = null) {
     http_response_code($code);
     header('Content-Type: application/json');
-    echo json_encode([
+    $response = [
         'success' => $success,
         'data' => $data,
         'message' => $message
-    ]);
+    ];
+    
+    if ($error !== null) {
+        $response['error'] = $error;
+    }
+    
+    echo json_encode($response);
     exit;
 }
 
