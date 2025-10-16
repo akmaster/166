@@ -1,6 +1,6 @@
 # 🎮 TWITCH CODE REWARD SYSTEM - COMPLETE REFERENCE
 
-**Version:** 7.1 (Modern UI & SVG Flags)  
+**Version:** 7.2 (Currency Symbol Update)  
 **Date:** January 2025  
 **Purpose:** Ultra-detailed prompt for AI to build complete system  
 **Total Lines:** ~5000+  
@@ -873,6 +873,17 @@ formatDuration($seconds)    // "1h 5m 30s"
 <a name="changelog"></a>
 
 ## 📝 CHANGELOG
+
+### v7.2 (Jan 2025) - Currency Symbol Update
+
+- ✅ TL text replaced with ₺ symbol throughout system
+- ✅ Updated language files (tr.json, en.json)
+- ✅ Updated PHP files (15+ files)
+- ✅ Updated component labels and forms
+- ✅ Updated API validation messages
+- ✅ Updated admin settings forms
+- ✅ Updated dashboard and landing page displays
+- ✅ Consistent currency display across entire system
 
 ### v7.1 (Jan 2025) - Modern UI & SVG Flags
 
