@@ -13,10 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     jsonResponse(false, [], 'Invalid request method', 405);
 }
 
-requireLogin();
-
-$userId = getCurrentUserId();
 $code = sanitize($_POST['code'] ?? '');
+
+// Check if user is logged in
+$isLoggedIn = isLoggedIn();
+$userId = $isLoggedIn ? getCurrentUserId() : null;
 
 // Validate code format
 if (!isValidCode($code)) {
@@ -32,7 +33,7 @@ $codeResult = $db->select('codes', '*', [
 ]);
 
 if (!$codeResult['success'] || empty($codeResult['data'])) {
-    jsonResponse(false, [], 'Kod bulunamadı');
+    jsonResponse(false, [], 'Kod bulunamadı', 200, 'code_not_found');
 }
 
 $codeData = $codeResult['data'][0];
@@ -49,12 +50,17 @@ $timeSinceCreated = $now->getTimestamp() - $createdAt->getTimestamp();
 // Check if code expired (countdown + duration)
 $totalDuration = $countdownDuration + $codeDuration;
 if ($timeSinceCreated >= $totalDuration) {
-    jsonResponse(false, [], 'Kodun süresi dolmuş');
+    jsonResponse(false, [], 'Kodun süresi dolmuş', 200, 'expired_code');
 }
 
 if ($timeSinceCreated < $countdownDuration) {
     $remaining = $countdownDuration - $timeSinceCreated;
-    jsonResponse(false, [], "Kod henüz aktif değil. $remaining saniye bekleyin.");
+    jsonResponse(false, [], "Kod henüz aktif değil. $remaining saniye bekleyin.", 200, 'invalid_code');
+}
+
+// If user is not logged in, return login required message
+if (!$isLoggedIn) {
+    jsonResponse(false, [], 'Giriş gerekli', 200, 'login_required');
 }
 
 // Check if user already submitted this code
@@ -64,7 +70,7 @@ $alreadySubmitted = $db->exists('submissions', [
 ]);
 
 if ($alreadySubmitted) {
-    jsonResponse(false, [], 'Bu kodu zaten kullandınız');
+    jsonResponse(false, [], 'Bu kodu zaten kullandınız', 200, 'used_code');
 }
 
 // Get streamer data

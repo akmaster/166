@@ -63,6 +63,27 @@ if (isLoggedIn()) {
             </div>
         </section>
         
+        <!-- Code Entry Section -->
+        <section class="code-entry">
+            <div class="container">
+                <div class="code-entry-card">
+                    <h2><?php echo __('landing.code_entry_title'); ?></h2>
+                    <p><?php echo __('landing.code_entry_subtitle'); ?></p>
+                    
+                    <form id="landing-code-form" class="code-form">
+                        <div class="input-group">
+                            <input type="text" id="landing-code" placeholder="<?php echo __('landing.code_placeholder'); ?>" maxlength="6" pattern="[0-9]{6}">
+                            <button type="submit" class="btn btn-primary">
+                                <?php echo __('landing.code_submit'); ?>
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div id="code-result" class="code-result" style="display: none;"></div>
+                </div>
+            </div>
+        </section>
+        
         <!-- How it Works -->
         <section class="how-it-works">
             <div class="container">
@@ -170,6 +191,135 @@ if (isLoggedIn()) {
     </footer>
     
     <script src="<?php echo asset('js/main.min.js'); ?>"></script>
+    
+    <script>
+    // Landing page code entry functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const codeForm = document.getElementById('landing-code-form');
+        const codeInput = document.getElementById('landing-code');
+        const codeResult = document.getElementById('code-result');
+        
+        // Language translations
+        const translations = {
+            tr: {
+                loginRequired: '<?php echo __('landing.login_required_title'); ?>',
+                loginMessage: '<?php echo __('landing.login_required_message'); ?>',
+                loginButton: '<?php echo __('landing.login_button'); ?>',
+                codeSuccess: 'Kod kabul edildi! +{amount} ₺',
+                codeInvalid: 'Geçersiz kod',
+                codeExpired: 'Kod süresi dolmuş',
+                codeUsed: 'Bu kodu daha önce kullandınız',
+                codeNotFound: 'Kod bulunamadı',
+                errorGeneric: 'Bir hata oluştu'
+            },
+            en: {
+                loginRequired: '<?php echo __('landing.login_required_title'); ?>',
+                loginMessage: '<?php echo __('landing.login_required_message'); ?>',
+                loginButton: '<?php echo __('landing.login_button'); ?>',
+                codeSuccess: 'Code accepted! +{amount} ₺',
+                codeInvalid: 'Invalid code',
+                codeExpired: 'Code expired',
+                codeUsed: 'You already used this code',
+                codeNotFound: 'Code not found',
+                errorGeneric: 'An error occurred'
+            }
+        };
+        
+        const currentLang = '<?php echo $GLOBALS['CURRENT_LANG']; ?>';
+        const t = translations[currentLang] || translations.tr;
+        
+        // Only allow numbers in code input
+        codeInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+        
+        // Form submission
+        codeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const code = codeInput.value.trim();
+            
+            if (code.length !== 6) {
+                showResult('error', t.codeInvalid);
+                return;
+            }
+            
+            // Submit code
+            fetch('/api/submit-code.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'code=' + encodeURIComponent(code)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.requires_login) {
+                        showLoginRequired();
+                    } else {
+                        showResult('success', t.codeSuccess.replace('{amount}', data.amount || '0'));
+                    }
+                } else {
+                    let message = t.errorGeneric;
+                    
+                    switch(data.error) {
+                        case 'invalid_code':
+                            message = t.codeInvalid;
+                            break;
+                        case 'expired_code':
+                            message = t.codeExpired;
+                            break;
+                        case 'used_code':
+                            message = t.codeUsed;
+                            break;
+                        case 'code_not_found':
+                            message = t.codeNotFound;
+                            break;
+                        case 'login_required':
+                            showLoginRequired();
+                            return;
+                    }
+                    
+                    showResult('error', message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showResult('error', t.errorGeneric);
+            });
+        });
+        
+        function showResult(type, message) {
+            codeResult.className = 'code-result ' + type;
+            codeResult.innerHTML = message;
+            codeResult.style.display = 'block';
+            
+            // Clear input
+            codeInput.value = '';
+            
+            // Hide result after 5 seconds
+            setTimeout(() => {
+                codeResult.style.display = 'none';
+            }, 5000);
+        }
+        
+        function showLoginRequired() {
+            codeResult.className = 'code-result login-required';
+            codeResult.innerHTML = `
+                <div class="login-required-content">
+                    <h3>${t.loginRequired}</h3>
+                    <p>${t.loginMessage}</p>
+                    <a href="/api/auth.php" class="btn btn-primary">${t.loginButton}</a>
+                </div>
+            `;
+            codeResult.style.display = 'block';
+            
+            // Clear input
+            codeInput.value = '';
+        }
+    });
+    </script>
 </body>
 </html>
 

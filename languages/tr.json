@@ -49,7 +49,14 @@
     "feature4_title": "Güvenli",
     "feature4_desc": "Twitch OAuth ile güvenli giriş",
     "cta_final_title": "Hemen Başla!",
-    "cta_final_subtitle": "Twitch izlerken para kazanmaya başla"
+    "cta_final_subtitle": "Twitch izlerken para kazanmaya başla",
+    "code_entry_title": "🔢 Kod Gir ve Para Kazan!",
+    "code_entry_subtitle": "Yayıncıların ekranda gösterdiği 6 haneli kodları gir",
+    "code_placeholder": "6 haneli kod girin",
+    "code_submit": "Kodu Gönder",
+    "login_required_title": "Giriş Gerekli",
+    "login_required_message": "Ödül kazanabilmek için Twitch hesabınızla oturum açmalısınız",
+    "login_button": "Twitch ile Giriş Yap"
   },
   "dashboard": {
     "title": "Dashboard - Rumb",

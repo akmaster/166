@@ -49,7 +49,14 @@
     "feature4_title": "Secure",
     "feature4_desc": "Secure login with Twitch OAuth",
     "cta_final_title": "Get Started Now!",
-    "cta_final_subtitle": "Start earning money while watching Twitch"
+    "cta_final_subtitle": "Start earning money while watching Twitch",
+    "code_entry_title": "🔢 Enter Code and Earn Money!",
+    "code_entry_subtitle": "Enter the 6-digit codes shown by streamers on screen",
+    "code_placeholder": "Enter 6-digit code",
+    "code_submit": "Submit Code",
+    "login_required_title": "Login Required",
+    "login_required_message": "You must log in with your Twitch account to earn rewards",
+    "login_button": "Login with Twitch"
   },
   "dashboard": {
     "title": "Dashboard - Rumb",
