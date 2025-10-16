@@ -115,8 +115,14 @@ function t($key, $params = []) {
  */
 function getAvailableLanguages() {
     return [
-        'tr' => ['name' => 'Türkçe', 'flag' => '🇹🇷'],
-        'en' => ['name' => 'English', 'flag' => '🇬🇧']
+        'tr' => [
+            'name' => 'Türkçe', 
+            'flag' => '<svg width="20" height="15" viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="15" fill="#E30A17"/><circle cx="10" cy="7.5" r="3.5" fill="#fff"/><circle cx="10" cy="7.5" r="2.5" fill="#E30A17"/><polygon points="10,5.5 10.8,6.8 9.2,6.8" fill="#fff"/></svg>'
+        ],
+        'en' => [
+            'name' => 'English', 
+            'flag' => '<svg width="20" height="15" viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="15" fill="#012169"/><path d="M0 0l20 15M20 0L0 15" stroke="#fff" stroke-width="2"/><path d="M0 0l20 15M20 0L0 15" stroke="#C8102E" stroke-width="1.2"/><rect x="0" y="6" width="20" height="3" fill="#fff"/><rect x="0" y="6" width="20" height="1.5" fill="#C8102E"/><rect x="8" y="0" width="4" height="15" fill="#fff"/><rect x="8" y="0" width="2" height="15" fill="#C8102E"/></svg>'
+        ]
     ];
 }
 
