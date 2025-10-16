@@ -993,3 +993,87 @@ select:focus {
 .text-danger {
   color: var(--danger) !important;
 }
+
+/* ===== LANGUAGE SWITCHER ===== */
+.language-switcher {
+  display: inline-flex;
+  gap: 0.25rem;
+  margin-right: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.25rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.language-switcher .lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  position: relative;
+  overflow: hidden;
+}
+.language-switcher .lang-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(145, 71, 255, 0.1), rgba(145, 71, 255, 0.05));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 8px;
+}
+.language-switcher .lang-btn:hover {
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+.language-switcher .lang-btn:hover::before {
+  opacity: 1;
+}
+.language-switcher .lang-btn.active {
+  background: linear-gradient(135deg, var(--primary), #7c3aed);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(145, 71, 255, 0.4);
+  transform: translateY(-1px);
+}
+.language-switcher .lang-btn.active::before {
+  opacity: 0;
+}
+.language-switcher .lang-btn svg {
+  flex-shrink: 0;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+.language-switcher .lang-btn:hover svg {
+  transform: scale(1.05);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+.language-switcher .lang-btn.active svg {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transform: scale(1.05);
+}
+
+.language-switcher{display:inline-flex;gap:0.25rem;margin-right:1rem;background:rgba(255,255,255,0.1);border-radius:12px;padding:0.25rem;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2)}
+.language-switcher .lang-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 0.75rem;background:transparent;border:none;border-radius:8px;font-size:0.875rem;font-weight:500;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);cursor:pointer;text-decoration:none;color:rgba(255,255,255,0.7);position:relative;overflow:hidden}
+.language-switcher .lang-btn::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,rgba(145,71,255,0.1),rgba(145,71,255,0.05));opacity:0;transition:opacity 0.3s ease;border-radius:8px}
+.language-switcher .lang-btn:hover{color:rgba(255,255,255,0.9);transform:translateY(-1px);text-decoration:none}
+.language-switcher .lang-btn:hover::before{opacity:1}
+.language-switcher .lang-btn.active{background:linear-gradient(135deg,var(--primary),#7c3aed);color:white;font-weight:600;box-shadow:0 4px 12px rgba(145,71,255,0.4);transform:translateY(-1px)}
+.language-switcher .lang-btn.active::before{opacity:0}
+.language-switcher .lang-btn svg{flex-shrink:0;border-radius:3px;box-shadow:0 2px 4px rgba(0,0,0,0.3);transition:all 0.3s ease}
+.language-switcher .lang-btn:hover svg{transform:scale(1.05);box-shadow:0 3px 6px rgba(0,0,0,0.4)}
+.language-switcher .lang-btn.active svg{box-shadow:0 2px 8px rgba(0,0,0,0.5);transform:scale(1.05)}
