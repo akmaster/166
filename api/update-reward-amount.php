@@ -24,7 +24,7 @@ if ($amount === '' || $amount === null) {
 } else {
     $amount = floatval($amount);
     if (!isValidDecimal($amount, 0.01, 100)) {
-        jsonResponse(false, [], 'Geçersiz miktar (0.01-100 TL arası)');
+        jsonResponse(false, [], 'Geçersiz miktar (0.01-100 ₺ arası)');
     }
 }
 

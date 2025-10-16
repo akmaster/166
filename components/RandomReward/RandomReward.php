@@ -31,7 +31,7 @@ $maxReward = $user['random_reward_max'];
     <div class="random-settings" style="display: <?php echo $useRandom ? 'block' : 'none'; ?>;">
         <div class="range-inputs">
             <div class="input-group">
-                <label for="random_min">Minimum (TL)</label>
+                <label for="random_min">Minimum (₺)</label>
                 <input 
                     type="number" 
                     id="random_min" 
@@ -45,7 +45,7 @@ $maxReward = $user['random_reward_max'];
             <div class="range-separator">-</div>
             
             <div class="input-group">
-                <label for="random_max">Maximum (TL)</label>
+                <label for="random_max">Maximum (₺)</label>
                 <input 
                     type="number" 
                     id="random_max" 
@@ -59,7 +59,7 @@ $maxReward = $user['random_reward_max'];
         
         <div class="info-box">
             <p>Her kullanıcı kod girdiğinde <strong>min-max</strong> arasında rastgele bir miktar kazanır.</p>
-            <p><small>Örnek: 0.10-0.20 TL arası → Her kullanıcı farklı miktar alır</small></p>
+            <p><small>Örnek: 0.10-0.20 ₺ arası → Her kullanıcı farklı miktar alır</small></p>
         </div>
     </div>
     

@@ -52,7 +52,7 @@ if (isLoggedIn()) {
                         <div class="stat-label"><?php echo __('landing.stats_users'); ?></div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value">0 TL</div>
+                        <div class="stat-value">0 ₺</div>
                         <div class="stat-label"><?php echo __('landing.stats_rewards'); ?></div>
                     </div>
                     <div class="stat-item">

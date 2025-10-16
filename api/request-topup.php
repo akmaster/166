@@ -22,7 +22,7 @@ $note = sanitize($_POST['note'] ?? '');
 
 // Validate amount
 if (!isValidDecimal($amount, 1, 10000)) {
-    jsonResponse(false, [], 'Geçersiz miktar (1-10,000 TL arası)');
+    jsonResponse(false, [], 'Geçersiz miktar (1-10,000 ₺ arası)');
 }
 
 // Payment proof is required

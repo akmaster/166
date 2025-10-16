@@ -181,7 +181,7 @@ $userBalance = (new Database())->getUserBalance($user['id']);
             <h2>💳 Bakiye Yükleme</h2>
             <form id="topup-form">
                 <div class="form-group">
-                    <label>Miktar (TL)</label>
+                    <label>Miktar (₺)</label>
                     <input type="number" id="topup-amount" min="1" max="10000" required>
                 </div>
                 <div class="form-group">

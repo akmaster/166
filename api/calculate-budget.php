@@ -22,7 +22,7 @@ $participationRate = floatval($_POST['participation_rate'] ?? 30) / 100; // Defa
 
 // Validate inputs
 if (!isValidDecimal($totalBudget, 1, 100000)) {
-    jsonResponse(false, [], 'Bütçe: 1-100,000 TL arası');
+    jsonResponse(false, [], 'Bütçe: 1-100,000 ₺ arası');
 }
 
 if (!isValidDecimal($streamHours, 0.5, 24)) {

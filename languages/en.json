@@ -76,7 +76,7 @@
       "overlay_instructions": "OBS → Browser Source → Paste this link (1920x1080)",
       "theme_title": "🎨 Theme Selection",
       "topup_modal_title": "💳 Balance Top-up",
-      "topup_amount": "Amount (TL)",
+      "topup_amount": "Amount (₺)",
       "topup_proof": "Payment Proof URL",
       "topup_note": "Note (Optional)",
       "topup_submit": "Submit Request"
@@ -112,14 +112,14 @@
     },
     "reward_settings": {
       "title": "💰 Reward Amount",
-      "amount_label": "Reward Per Code (TL)",
+      "amount_label": "Reward Per Code (₺)",
       "save_button": "Save"
     },
     "random_reward": {
       "title": "🎲 Random Reward",
       "toggle_label": "Use Random Reward",
-      "min_label": "Minimum (TL)",
-      "max_label": "Maximum (TL)",
+      "min_label": "Minimum (₺)",
+      "max_label": "Maximum (₺)",
       "save_button": "Save",
       "info": "A random reward amount is given for each code"
     },
@@ -136,7 +136,7 @@
     },
     "budget_calculator": {
       "title": "💳 Budget Calculator",
-      "budget_label": "Total Budget (TL)",
+      "budget_label": "Total Budget (₺)",
       "duration_label": "Duration",
       "duration_hour": "Hour",
       "duration_day": "Day",
@@ -162,7 +162,7 @@
     "settings": "Settings"
   },
   "messages": {
-    "code_success": "Code accepted! +{amount} TL",
+    "code_success": "Code accepted! +{amount} ₺",
     "code_invalid": "Invalid code",
     "code_expired": "Code expired",
     "code_used": "You already used this code",
@@ -207,7 +207,7 @@
     "just_now": "just now"
   },
   "currency": {
-    "symbol": "TL",
-    "format": "{amount} TL"
+    "symbol": "₺",
+    "format": "{amount} ₺"
   }
 }

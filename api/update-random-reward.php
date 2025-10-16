@@ -25,11 +25,11 @@ $updateData = ['use_random_reward' => $enabled];
 if ($enabled) {
     // Validate min/max
     if (!isValidDecimal($min, 0.05, 10)) {
-        jsonResponse(false, [], 'Min: 0.05-10 TL arası');
+        jsonResponse(false, [], 'Min: 0.05-10 ₺ arası');
     }
     
     if (!isValidDecimal($max, 0.05, 10)) {
-        jsonResponse(false, [], 'Max: 0.05-10 TL arası');
+        jsonResponse(false, [], 'Max: 0.05-10 ₺ arası');
     }
     
     if ($min >= $max) {

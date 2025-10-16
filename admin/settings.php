@@ -47,13 +47,13 @@ $countdownDuration = $db->getSetting('countdown_duration', DEFAULT_COUNTDOWN_DUR
         <div class="card" style="margin-top: 2rem;">
             <form method="POST">
                 <div class="form-group">
-                    <label>Minimum Ödeme Eşiği (TL)</label>
+                    <label>Minimum Ödeme Eşiği (₺)</label>
                     <input type="number" name="payout_threshold" step="0.01" value="<?php echo $payoutThreshold; ?>" required>
                     <small>İzleyicilerin ödeme talep edebilmesi için minimum bakiye</small>
                 </div>
                 
                 <div class="form-group">
-                    <label>Varsayılan Ödül Miktarı (TL)</label>
+                    <label>Varsayılan Ödül Miktarı (₺)</label>
                     <input type="number" name="reward_per_code" step="0.01" value="<?php echo $rewardPerCode; ?>" required>
                     <small>Yayıncı özelleştirmezse kullanılan ödül miktarı</small>
                 </div>

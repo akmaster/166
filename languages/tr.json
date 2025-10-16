@@ -76,7 +76,7 @@
       "overlay_instructions": "OBS → Browser Source → Bu linki yapıştır (1920x1080)",
       "theme_title": "🎨 Tema Seçimi",
       "topup_modal_title": "💳 Bakiye Yükleme",
-      "topup_amount": "Miktar (TL)",
+      "topup_amount": "Miktar (₺)",
       "topup_proof": "Ödeme Dekontu URL",
       "topup_note": "Not (İsteğe Bağlı)",
       "topup_submit": "Talep Gönder"
@@ -112,14 +112,14 @@
     },
     "reward_settings": {
       "title": "💰 Ödül Miktarı",
-      "amount_label": "Kod Başı Ödül (TL)",
+      "amount_label": "Kod Başı Ödül (₺)",
       "save_button": "Kaydet"
     },
     "random_reward": {
       "title": "🎲 Rastgele Ödül",
       "toggle_label": "Rastgele Ödül Kullan",
-      "min_label": "Minimum (TL)",
-      "max_label": "Maximum (TL)",
+      "min_label": "Minimum (₺)",
+      "max_label": "Maximum (₺)",
       "save_button": "Kaydet",
       "info": "Her kodda rastgele bir ödül miktarı verilir"
     },
@@ -136,7 +136,7 @@
     },
     "budget_calculator": {
       "title": "💳 Bütçe Hesaplayıcı",
-      "budget_label": "Toplam Bütçe (TL)",
+      "budget_label": "Toplam Bütçe (₺)",
       "duration_label": "Süre",
       "duration_hour": "Saat",
       "duration_day": "Gün",
@@ -162,7 +162,7 @@
     "settings": "Ayarlar"
   },
   "messages": {
-    "code_success": "Kod kabul edildi! +{amount} TL",
+    "code_success": "Kod kabul edildi! +{amount} ₺",
     "code_invalid": "Geçersiz kod",
     "code_expired": "Kod süresi dolmuş",
     "code_used": "Bu kodu daha önce kullandınız",
@@ -207,7 +207,7 @@
     "just_now": "az önce"
   },
   "currency": {
-    "symbol": "TL",
-    "format": "{amount} TL"
+    "symbol": "₺",
+    "format": "{amount} ₺"
   }
 }

@@ -78,7 +78,7 @@ foreach ($users as $user) {
     // Check if user has sufficient balance
     $streamerBalance = floatval($user['streamer_balance']);
     if ($streamerBalance <= 0) {
-        $log[] = "  SKIP: Insufficient balance (0 TL)";
+        $log[] = "  SKIP: Insufficient balance (0 ₺)";
         
         // Set next code time to far future (don't keep trying) - UTC
         $futureTime = (new DateTime('now', new DateTimeZone('UTC')))->modify('+1 day');

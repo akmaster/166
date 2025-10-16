@@ -13,7 +13,7 @@
     
     <div class="calculator-inputs">
         <div class="input-group">
-            <label for="total_budget">Toplam Bütçe (TL)</label>
+            <label for="total_budget">Toplam Bütçe (₺)</label>
             <input type="number" id="total_budget" min="1" max="100000" step="0.01" placeholder="Örn: 100">
         </div>
         

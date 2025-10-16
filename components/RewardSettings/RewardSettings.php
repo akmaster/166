@@ -21,7 +21,7 @@ $defaultReward = floatval($db->getSetting('reward_per_code', DEFAULT_REWARD_AMOU
     <h3>💰 Ödül Miktarı</h3>
     
     <div class="reward-input-group">
-        <label for="reward_amount">Her Kod Başına Ödül (TL)</label>
+        <label for="reward_amount">Her Kod Başına Ödül (₺)</label>
         <div class="input-wrapper">
             <input 
                 type="number" 
@@ -31,11 +31,11 @@ $defaultReward = floatval($db->getSetting('reward_per_code', DEFAULT_REWARD_AMOU
                 max="100" 
                 step="0.01"
                 value="<?php echo $customReward ?? ''; ?>"
-                placeholder="Varsayılan: <?php echo number_format($defaultReward, 2); ?> TL"
+                placeholder="Varsayılan: <?php echo number_format($defaultReward, 2); ?> ₺"
             >
-            <span class="currency-symbol">TL</span>
+            <span class="currency-symbol">₺</span>
         </div>
-        <small>İzleyiciler her kod girişinde bu miktarı kazanır (0.01-100 TL)</small>
+        <small>İzleyiciler her kod girişinde bu miktarı kazanır (0.01-100 ₺)</small>
     </div>
     
     <button id="save-reward-amount" class="btn btn-primary btn-block">

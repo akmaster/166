@@ -108,7 +108,7 @@ function isValidCode($code) {
 /**
  * Format currency
  */
-function formatCurrency($amount, $currency = 'TL') {
+function formatCurrency($amount, $currency = '₺') {
     return number_format($amount, 2, ',', '.') . ' ' . $currency;
 }
 
