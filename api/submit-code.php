@@ -9,9 +9,6 @@ require_once __DIR__ . '/../config/config.php';
 
 header('Content-Type: application/json');
 
-// Enable error reporting for debugging
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     jsonResponse(false, [], 'Invalid request method', 405);
@@ -19,17 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 try {
     $code = sanitize($_POST['code'] ?? '');
-    
-    // Debug: Log the received code
-    error_log('Received code: ' . $code);
 
     // Check if user is logged in
     $isLoggedIn = isLoggedIn();
     $userId = $isLoggedIn ? getCurrentUserId() : null;
-    
-    // Debug: Log login status
-    error_log('User logged in: ' . ($isLoggedIn ? 'yes' : 'no'));
-    error_log('User ID: ' . ($userId ?? 'null'));
 
     // Validate code format
     if (!isValidCode($code)) {
@@ -145,10 +135,6 @@ logDebug('Code submitted', [
     ], 'Tebrikler! ' . formatCurrency($rewardAmount) . ' kazandınız!');
 
 } catch (Exception $e) {
-    // Log the error for debugging
-    error_log('Submit Code API Error: ' . $e->getMessage());
-    error_log('Stack trace: ' . $e->getTraceAsString());
-    
-    jsonResponse(false, [], 'Bir hata oluştu: ' . $e->getMessage(), 500, 'server_error');
+    jsonResponse(false, [], 'Bir hata oluştu', 500, 'server_error');
 }
 

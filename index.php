@@ -286,8 +286,7 @@ if (isLoggedIn()) {
             })
             .catch(error => {
                 console.error('Error:', error);
-                console.error('Error details:', error.message);
-                showResult('error', t.errorGeneric + ' (Detay: ' + error.message + ')');
+                showResult('error', t.errorGeneric);
             });
         });
         
