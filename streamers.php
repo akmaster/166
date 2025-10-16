@@ -11,11 +11,11 @@ $isLoggedIn = isLoggedIn();
 $user = $isLoggedIn ? getCurrentUser() : null;
 ?>
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="<?php echo $GLOBALS['CURRENT_LANG']; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canlı Yayıncılar - Rumb</title>
+    <title><?php echo __('streamers.title'); ?></title>
     <link rel="stylesheet" href="<?php echo asset('css/style.css'); ?>">
 </head>
 <body>
@@ -23,17 +23,18 @@ $user = $isLoggedIn ? getCurrentUser() : null;
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
-                <a href="/">🎮 Rumb</a>
+                <a href="/">🎮 <?php echo __('site.name'); ?></a>
             </div>
             <div class="nav-links">
+                <?php echo getLanguageSwitcher(); ?>
                 <?php if ($isLoggedIn): ?>
                     <img src="<?php echo $user['twitch_avatar_url']; ?>" alt="Avatar" class="user-avatar">
                     <span><?php echo $user['twitch_username']; ?></span>
-                    <a href="/" class="btn btn-secondary btn-sm">Dashboard</a>
-                    <a href="/api/logout.php" class="btn btn-outline btn-sm">Çıkış</a>
+                    <a href="/dashboard/" class="btn btn-secondary btn-sm"><?php echo __('nav.dashboard'); ?></a>
+                    <a href="/api/logout.php" class="btn btn-outline btn-sm"><?php echo __('nav.logout'); ?></a>
                 <?php else: ?>
-                    <a href="/">Ana Sayfa</a>
-                    <a href="/api/auth.php" class="btn btn-primary">Twitch ile Giriş Yap</a>
+                    <a href="/"><?php echo __('nav.home'); ?></a>
+                    <a href="/api/auth.php" class="btn btn-primary"><?php echo __('nav.login'); ?></a>
                 <?php endif; ?>
             </div>
         </div>
@@ -42,13 +43,13 @@ $user = $isLoggedIn ? getCurrentUser() : null;
     <div class="streamers-page">
         <div class="container">
             <div class="page-header">
-                <h1>🔴 Canlı Yayıncılar</h1>
-                <p>Sistemdeki yayıncıları izle, kod gir, para kazan!</p>
+                <h1><?php echo __('streamers.page_title'); ?></h1>
+                <p><?php echo __('streamers.page_subtitle'); ?></p>
             </div>
             
             <div id="streamers-loading" class="loading-state">
                 <div class="spinner"></div>
-                <p>Yayıncılar yükleniyor...</p>
+                <p><?php echo __('streamers.loading'); ?></p>
             </div>
             
             <div id="streamers-grid" class="streamers-grid" style="display: none;">
@@ -57,20 +58,26 @@ $user = $isLoggedIn ? getCurrentUser() : null;
             
             <div id="no-streamers" class="empty-state" style="display: none;">
                 <div class="empty-icon">😔</div>
-                <h3>Şu anda canlı yayıncı yok</h3>
-                <p>Yayıncılar online olduğunda burada görünecek</p>
-                <a href="/" class="btn btn-primary">Ana Sayfaya Dön</a>
+                <h3><?php echo __('streamers.no_streamers_title'); ?></h3>
+                <p><?php echo __('streamers.no_streamers_subtitle'); ?></p>
+                <a href="/" class="btn btn-primary"><?php echo __('streamers.back_home'); ?></a>
             </div>
         </div>
     </div>
     
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Rumb. Tüm hakları saklıdır.</p>
+            <p><?php echo __('site.footer'); ?></p>
         </div>
     </footer>
     
     <script>
+        // Translation variables
+        const LANG = {
+            liveBadge: '<?php echo __('streamers.live_badge'); ?>',
+            watchButton: '<?php echo __('streamers.watch_button'); ?>'
+        };
+        
         // Show skeleton cards during loading
         function showSkeletonCards() {
             const grid = document.getElementById('streamers-grid');
@@ -127,7 +134,7 @@ $user = $isLoggedIn ? getCurrentUser() : null;
                 card.innerHTML = `
                     <div class="stream-thumbnail">
                         <img src="${streamer.thumbnail_url}" alt="${streamer.username}" loading="lazy">
-                        <div class="live-badge">🔴 CANLI</div>
+                        <div class="live-badge">${LANG.liveBadge}</div>
                         <div class="viewer-count">👁️ ${formatNumber(streamer.viewer_count)}</div>
                     </div>
                     <div class="streamer-info">
@@ -140,7 +147,7 @@ $user = $isLoggedIn ? getCurrentUser() : null;
                         </div>
                         <p class="stream-title">${streamer.stream_title}</p>
                         <a href="https://twitch.tv/${streamer.username}" target="_blank" class="btn btn-primary btn-block">
-                            📺 İzle
+                            ${LANG.watchButton}
                         </a>
                     </div>
                 `;

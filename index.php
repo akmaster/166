@@ -15,11 +15,11 @@ if (isLoggedIn()) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="<?php echo $GLOBALS['CURRENT_LANG']; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rumb - Twitch Code Reward System</title>
+    <title><?php echo __('site.name'); ?> - <?php echo __('site.description'); ?></title>
     <link rel="stylesheet" href="<?php echo asset('css/style.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo asset('css/landing.min.css'); ?>">
 </head>
@@ -29,11 +29,12 @@ if (isLoggedIn()) {
         <nav class="navbar">
             <div class="container">
                 <div class="nav-brand">
-                    <h1>🎮 Rumb</h1>
+                    <h1>🎮 <?php echo __('site.name'); ?></h1>
                 </div>
                 <div class="nav-links">
-                    <a href="/streamers.php">Canlı Yayıncılar</a>
-                    <a href="/api/auth.php" class="btn btn-primary">Twitch ile Giriş Yap</a>
+                    <?php echo getLanguageSwitcher(); ?>
+                    <a href="/streamers.php"><?php echo __('nav.streamers'); ?></a>
+                    <a href="/api/auth.php" class="btn btn-primary"><?php echo __('nav.login'); ?></a>
                 </div>
             </div>
         </nav>
@@ -41,22 +42,22 @@ if (isLoggedIn()) {
         <!-- Hero Section -->
         <section class="hero">
             <div class="container">
-                <h1 class="hero-title">Twitch İzlerken Para Kazan!</h1>
-                <p class="hero-subtitle">Yayıncılar ekranda gösterdiği kodları gir, anında ödül kazan. Ücretsiz ve kolay!</p>
-                <a href="/api/auth.php" class="btn btn-hero">🚀 Hemen Başla</a>
+                <h1 class="hero-title"><?php echo __('landing.hero_title'); ?></h1>
+                <p class="hero-subtitle"><?php echo __('landing.hero_subtitle'); ?></p>
+                <a href="/api/auth.php" class="btn btn-hero"><?php echo __('landing.cta_button'); ?></a>
                 
                 <div class="stats-preview" id="public-stats">
                     <div class="stat-item">
                         <div class="stat-value">0</div>
-                        <div class="stat-label">Toplam Kullanıcı</div>
+                        <div class="stat-label"><?php echo __('landing.stats_users'); ?></div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">0 TL</div>
-                        <div class="stat-label">Dağıtılan Ödül</div>
+                        <div class="stat-label"><?php echo __('landing.stats_rewards'); ?></div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">0</div>
-                        <div class="stat-label">Kod Kullanımı</div>
+                        <div class="stat-label"><?php echo __('landing.stats_codes'); ?></div>
                     </div>
                 </div>
             </div>
@@ -65,34 +66,34 @@ if (isLoggedIn()) {
         <!-- How it Works -->
         <section class="how-it-works">
             <div class="container">
-                <h2>Nasıl Çalışır?</h2>
+                <h2><?php echo __('landing.how_it_works'); ?></h2>
                 
                 <div class="tabs">
-                    <button class="tab-btn active" data-tab="viewer">👁️ İzleyici İçin</button>
-                    <button class="tab-btn" data-tab="streamer">🎙️ Yayıncı İçin</button>
+                    <button class="tab-btn active" data-tab="viewer"><?php echo __('landing.tab_viewer'); ?></button>
+                    <button class="tab-btn" data-tab="streamer"><?php echo __('landing.tab_streamer'); ?></button>
                 </div>
                 
                 <div class="tab-content active" id="viewer-tab">
                     <div class="steps">
                         <div class="step">
                             <div class="step-number">1</div>
-                            <h3>Twitch ile Giriş Yap</h3>
-                            <p>Hesap oluştur, hiçbir ücret yok</p>
+                            <h3><?php echo __('landing.viewer_step1_title'); ?></h3>
+                            <p><?php echo __('landing.viewer_step1_desc'); ?></p>
                         </div>
                         <div class="step">
                             <div class="step-number">2</div>
-                            <h3>Yayın İzle</h3>
-                            <p>Sistemdeki yayıncıları izle</p>
+                            <h3><?php echo __('landing.viewer_step2_title'); ?></h3>
+                            <p><?php echo __('landing.viewer_step2_desc'); ?></p>
                         </div>
                         <div class="step">
                             <div class="step-number">3</div>
-                            <h3>Kodu Gir</h3>
-                            <p>Ekranda gözüken 6 haneli kodu gir</p>
+                            <h3><?php echo __('landing.viewer_step3_title'); ?></h3>
+                            <p><?php echo __('landing.viewer_step3_desc'); ?></p>
                         </div>
                         <div class="step">
                             <div class="step-number">4</div>
-                            <h3>Para Kazan</h3>
-                            <p>Anında bakiyene eklenir, çek!</p>
+                            <h3><?php echo __('landing.viewer_step4_title'); ?></h3>
+                            <p><?php echo __('landing.viewer_step4_desc'); ?></p>
                         </div>
                     </div>
                 </div>
@@ -101,23 +102,23 @@ if (isLoggedIn()) {
                     <div class="steps">
                         <div class="step">
                             <div class="step-number">1</div>
-                            <h3>Hesap Oluştur</h3>
-                            <p>Twitch ile giriş yap</p>
+                            <h3><?php echo __('landing.streamer_step1_title'); ?></h3>
+                            <p><?php echo __('landing.streamer_step1_desc'); ?></p>
                         </div>
                         <div class="step">
                             <div class="step-number">2</div>
-                            <h3>Bakiye Yükle</h3>
-                            <p>Dağıtacağın parayı yükle</p>
+                            <h3><?php echo __('landing.streamer_step2_title'); ?></h3>
+                            <p><?php echo __('landing.streamer_step2_desc'); ?></p>
                         </div>
                         <div class="step">
                             <div class="step-number">3</div>
-                            <h3>Ayarları Yap</h3>
-                            <p>Kod sıklığı, ödül miktarı, tema</p>
+                            <h3><?php echo __('landing.streamer_step3_title'); ?></h3>
+                            <p><?php echo __('landing.streamer_step3_desc'); ?></p>
                         </div>
                         <div class="step">
                             <div class="step-number">4</div>
-                            <h3>OBS'e Ekle</h3>
-                            <p>Overlay linkini OBS'e ekle, yayına başla</p>
+                            <h3><?php echo __('landing.streamer_step4_title'); ?></h3>
+                            <p><?php echo __('landing.streamer_step4_desc'); ?></p>
                         </div>
                     </div>
                 </div>
@@ -126,28 +127,28 @@ if (isLoggedIn()) {
         
         <!-- Features -->
         <section class="features">
-            <div class="container">
-                <h2>Özellikler</h2>
+            <div class="container"></div>
+                <h2><?php echo __('landing.features_title'); ?></h2>
                 <div class="feature-grid">
                     <div class="feature">
                         <div class="feature-icon">⚡</div>
-                        <h3>Anında Ödeme</h3>
-                        <p>Kodları girdiğin anda bakiyene eklenir</p>
+                        <h3><?php echo __('landing.feature1_title'); ?></h3>
+                        <p><?php echo __('landing.feature1_desc'); ?></p>
                     </div>
                     <div class="feature">
                         <div class="feature-icon">🎨</div>
-                        <h3>20+ Tema</h3>
-                        <p>Yayınınıza uygun temalar</p>
+                        <h3><?php echo __('landing.feature2_title'); ?></h3>
+                        <p><?php echo __('landing.feature2_desc'); ?></p>
                     </div>
                     <div class="feature">
                         <div class="feature-icon">📱</div>
-                        <h3>Mobil Uyumlu</h3>
-                        <p>Her cihazdan kullan</p>
+                        <h3><?php echo __('landing.feature3_title'); ?></h3>
+                        <p><?php echo __('landing.feature3_desc'); ?></p>
                     </div>
                     <div class="feature">
                         <div class="feature-icon">🔒</div>
-                        <h3>Güvenli</h3>
-                        <p>Twitch OAuth ile güvenli giriş</p>
+                        <h3><?php echo __('landing.feature4_title'); ?></h3>
+                        <p><?php echo __('landing.feature4_desc'); ?></p>
                     </div>
                 </div>
             </div>
@@ -156,15 +157,15 @@ if (isLoggedIn()) {
         <!-- CTA -->
         <section class="cta">
             <div class="container">
-                <h2>Hemen Başla!</h2>
-                <p>Twitch izlerken para kazanmaya başla</p>
-                <a href="/api/auth.php" class="btn btn-hero">🎮 Twitch ile Giriş Yap</a>
+                <h2><?php echo __('landing.cta_final_title'); ?></h2>
+                <p><?php echo __('landing.cta_final_subtitle'); ?></p>
+                <a href="/api/auth.php" class="btn btn-hero">🎮 <?php echo __('nav.login'); ?></a>
             </div>
         </section>
     
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Rumb. Tüm hakları saklıdır.</p>
+            <p><?php echo __('site.footer'); ?></p>
         </div>
     </footer>
     

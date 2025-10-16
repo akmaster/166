@@ -1,0 +1,214 @@
+{
+  "site": {
+    "name": "Rumb",
+    "slogan": "Earn Money While Watching Twitch!",
+    "description": "Automatic code reward system for Twitch streamers",
+    "footer": "© 2025 Rumb. All rights reserved."
+  },
+  "nav": {
+    "home": "Home",
+    "streamers": "Live Streamers",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "login": "Login with Twitch",
+    "logout": "Logout"
+  },
+  "landing": {
+    "hero_title": "Earn Money While Watching Twitch!",
+    "hero_subtitle": "Enter codes shown by streamers and earn instant rewards. Free and easy!",
+    "cta_button": "🚀 Get Started",
+    "stats_users": "Total Users",
+    "stats_rewards": "Total Rewards",
+    "stats_codes": "Codes Used",
+    "how_it_works": "How It Works?",
+    "tab_viewer": "👁️ For Viewers",
+    "tab_streamer": "🎙️ For Streamers",
+    "viewer_step1_title": "Login with Twitch",
+    "viewer_step1_desc": "Create account, it's free",
+    "viewer_step2_title": "Watch Streams",
+    "viewer_step2_desc": "Watch streamers in the system",
+    "viewer_step3_title": "Enter Code",
+    "viewer_step3_desc": "Enter the 6-digit code shown on screen",
+    "viewer_step4_title": "Earn Money",
+    "viewer_step4_desc": "Instantly added to your balance, withdraw!",
+    "streamer_step1_title": "Create Account",
+    "streamer_step1_desc": "Login with Twitch",
+    "streamer_step2_title": "Load Balance",
+    "streamer_step2_desc": "Load money to distribute",
+    "streamer_step3_title": "Configure Settings",
+    "streamer_step3_desc": "Code frequency, reward amount, theme",
+    "streamer_step4_title": "Add to OBS",
+    "streamer_step4_desc": "Add overlay link to OBS, start streaming",
+    "features_title": "Features",
+    "feature1_title": "Instant Payment",
+    "feature1_desc": "Added to your balance as soon as you enter codes",
+    "feature2_title": "20+ Themes",
+    "feature2_desc": "Themes suitable for your stream",
+    "feature3_title": "Mobile Friendly",
+    "feature3_desc": "Use from any device",
+    "feature4_title": "Secure",
+    "feature4_desc": "Secure login with Twitch OAuth",
+    "cta_final_title": "Get Started Now!",
+    "cta_final_subtitle": "Start earning money while watching Twitch"
+  },
+  "dashboard": {
+    "title": "Dashboard - Rumb",
+    "tabs": {
+      "viewer": "👁️ Viewer",
+      "streamer": "🎙️ Streamer"
+    },
+    "viewer": {
+      "code_entry_title": "🔢 Enter Code",
+      "code_placeholder": "6-digit code",
+      "code_submit": "Submit",
+      "balance_title": "💰 Your Balance",
+      "request_payout": "💸 Request Payout",
+      "payout_threshold": "Minimum payout",
+      "payout_remaining": "Remaining",
+      "recent_activity": "📊 Recent Activity",
+      "loading": "Loading..."
+    },
+    "streamer": {
+      "balance_title": "💳 Streamer Balance",
+      "topup_button": "➕ Load Balance",
+      "overlay_title": "🎬 OBS Overlay Link",
+      "overlay_copy": "📋 Copy",
+      "overlay_instructions": "OBS → Browser Source → Paste this link (1920x1080)",
+      "theme_title": "🎨 Theme Selection",
+      "topup_modal_title": "💳 Balance Top-up",
+      "topup_amount": "Amount (TL)",
+      "topup_proof": "Payment Proof URL",
+      "topup_note": "Note (Optional)",
+      "topup_submit": "Submit Request"
+    }
+  },
+  "streamers": {
+    "title": "Live Streamers - Rumb",
+    "page_title": "🔴 Live Streamers",
+    "page_subtitle": "Watch streamers, enter codes, earn money!",
+    "loading": "Loading streamers...",
+    "no_streamers_title": "No live streamers right now",
+    "no_streamers_subtitle": "Streamers will appear here when they're online",
+    "back_home": "Back to Home",
+    "live_badge": "🔴 LIVE",
+    "watch_button": "📺 Watch"
+  },
+  "components": {
+    "code_settings": {
+      "title": "⏱️ Code Settings",
+      "countdown_label": "Countdown Duration",
+      "countdown_info": "Countdown before showing the code",
+      "duration_label": "Code Display Duration",
+      "duration_info": "How long the code stays on screen",
+      "interval_label": "Code Interval",
+      "interval_info": "Waiting time between codes",
+      "preset_fast": "Fast",
+      "preset_normal": "Normal",
+      "preset_slow": "Slow",
+      "save_button": "Save",
+      "timing_info_title": "⏰ Timing Information",
+      "timing_total": "Total Cycle",
+      "timing_codes_per_hour": "Codes Per Hour"
+    },
+    "reward_settings": {
+      "title": "💰 Reward Amount",
+      "amount_label": "Reward Per Code (TL)",
+      "save_button": "Save"
+    },
+    "random_reward": {
+      "title": "🎲 Random Reward",
+      "toggle_label": "Use Random Reward",
+      "min_label": "Minimum (TL)",
+      "max_label": "Maximum (TL)",
+      "save_button": "Save",
+      "info": "A random reward amount is given for each code"
+    },
+    "sound_settings": {
+      "title": "🔊 Sound Settings",
+      "master_toggle": "Sound System",
+      "code_sound_title": "Code Sound",
+      "code_sound_toggle": "Play code sound",
+      "countdown_sound_title": "Countdown Sound",
+      "countdown_sound_toggle": "Play countdown sound",
+      "countdown_start_label": "Countdown sound start",
+      "countdown_start_info": "At what second should the countdown sound start (0 = from beginning)",
+      "save_button": "Save"
+    },
+    "budget_calculator": {
+      "title": "💳 Budget Calculator",
+      "budget_label": "Total Budget (TL)",
+      "duration_label": "Duration",
+      "duration_hour": "Hour",
+      "duration_day": "Day",
+      "duration_week": "Week",
+      "duration_month": "Month",
+      "calculate_button": "Calculate",
+      "result_codes": "Codes Per Hour",
+      "result_cost": "Total Cost",
+      "apply_button": "Apply to Settings"
+    }
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "login": "Admin Login",
+    "username": "Username",
+    "password": "Password",
+    "login_button": "Login",
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "codes": "Codes",
+    "payouts": "Payouts",
+    "topups": "Balance Top-ups",
+    "settings": "Settings"
+  },
+  "messages": {
+    "code_success": "Code accepted! +{amount} TL",
+    "code_invalid": "Invalid code",
+    "code_expired": "Code expired",
+    "code_used": "You already used this code",
+    "code_not_found": "Code not found",
+    "payout_success": "Payout request sent",
+    "payout_error": "Insufficient balance",
+    "topup_success": "Balance top-up request sent",
+    "settings_saved": "Settings saved",
+    "theme_changed": "Theme changed",
+    "error_generic": "An error occurred",
+    "success_generic": "Operation successful"
+  },
+  "form": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "close": "Close",
+    "reset": "Reset",
+    "search": "Search",
+    "filter": "Filter"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalid_format": "Invalid format",
+    "too_short": "Too short",
+    "too_long": "Too long",
+    "invalid_number": "Invalid number",
+    "invalid_email": "Invalid email",
+    "invalid_url": "Invalid URL"
+  },
+  "time": {
+    "seconds": "seconds",
+    "minutes": "minutes",
+    "hours": "hours",
+    "days": "days",
+    "weeks": "weeks",
+    "months": "months",
+    "ago": "ago",
+    "just_now": "just now"
+  },
+  "currency": {
+    "symbol": "TL",
+    "format": "{amount} TL"
+  }
+}
+

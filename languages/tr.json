@@ -1,0 +1,214 @@
+{
+  "site": {
+    "name": "Rumb",
+    "slogan": "Twitch İzlerken Para Kazan!",
+    "description": "Twitch yayıncıları için otomatik kod ödül sistemi",
+    "footer": "© 2025 Rumb. Tüm hakları saklıdır."
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "streamers": "Canlı Yayıncılar",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "login": "Twitch ile Giriş Yap",
+    "logout": "Çıkış"
+  },
+  "landing": {
+    "hero_title": "Twitch İzlerken Para Kazan!",
+    "hero_subtitle": "Yayıncılar ekranda gösterdiği kodları gir, anında ödül kazan. Ücretsiz ve kolay!",
+    "cta_button": "🚀 Hemen Başla",
+    "stats_users": "Toplam Kullanıcı",
+    "stats_rewards": "Dağıtılan Ödül",
+    "stats_codes": "Kod Kullanımı",
+    "how_it_works": "Nasıl Çalışır?",
+    "tab_viewer": "👁️ İzleyici İçin",
+    "tab_streamer": "🎙️ Yayıncı İçin",
+    "viewer_step1_title": "Twitch ile Giriş Yap",
+    "viewer_step1_desc": "Hesap oluştur, hiçbir ücret yok",
+    "viewer_step2_title": "Yayın İzle",
+    "viewer_step2_desc": "Sistemdeki yayıncıları izle",
+    "viewer_step3_title": "Kodu Gir",
+    "viewer_step3_desc": "Ekranda gözüken 6 haneli kodu gir",
+    "viewer_step4_title": "Para Kazan",
+    "viewer_step4_desc": "Anında bakiyene eklenir, çek!",
+    "streamer_step1_title": "Hesap Oluştur",
+    "streamer_step1_desc": "Twitch ile giriş yap",
+    "streamer_step2_title": "Bakiye Yükle",
+    "streamer_step2_desc": "Dağıtacağın parayı yükle",
+    "streamer_step3_title": "Ayarları Yap",
+    "streamer_step3_desc": "Kod sıklığı, ödül miktarı, tema",
+    "streamer_step4_title": "OBS'e Ekle",
+    "streamer_step4_desc": "Overlay linkini OBS'e ekle, yayına başla",
+    "features_title": "Özellikler",
+    "feature1_title": "Anında Ödeme",
+    "feature1_desc": "Kodları girdiğin anda bakiyene eklenir",
+    "feature2_title": "20+ Tema",
+    "feature2_desc": "Yayınınıza uygun temalar",
+    "feature3_title": "Mobil Uyumlu",
+    "feature3_desc": "Her cihazdan kullan",
+    "feature4_title": "Güvenli",
+    "feature4_desc": "Twitch OAuth ile güvenli giriş",
+    "cta_final_title": "Hemen Başla!",
+    "cta_final_subtitle": "Twitch izlerken para kazanmaya başla"
+  },
+  "dashboard": {
+    "title": "Dashboard - Rumb",
+    "tabs": {
+      "viewer": "👁️ İzleyici",
+      "streamer": "🎙️ Yayıncı"
+    },
+    "viewer": {
+      "code_entry_title": "🔢 Kod Gir",
+      "code_placeholder": "6 haneli kod",
+      "code_submit": "Gönder",
+      "balance_title": "💰 Bakiyeniz",
+      "request_payout": "💸 Ödeme Talep Et",
+      "payout_threshold": "Minimum ödeme",
+      "payout_remaining": "Kalan",
+      "recent_activity": "📊 Son İşlemler",
+      "loading": "Yükleniyor..."
+    },
+    "streamer": {
+      "balance_title": "💳 Yayıncı Bakiyesi",
+      "topup_button": "➕ Bakiye Yükle",
+      "overlay_title": "🎬 OBS Overlay Linki",
+      "overlay_copy": "📋 Kopyala",
+      "overlay_instructions": "OBS → Browser Source → Bu linki yapıştır (1920x1080)",
+      "theme_title": "🎨 Tema Seçimi",
+      "topup_modal_title": "💳 Bakiye Yükleme",
+      "topup_amount": "Miktar (TL)",
+      "topup_proof": "Ödeme Dekontu URL",
+      "topup_note": "Not (İsteğe Bağlı)",
+      "topup_submit": "Talep Gönder"
+    }
+  },
+  "streamers": {
+    "title": "Canlı Yayıncılar - Rumb",
+    "page_title": "🔴 Canlı Yayıncılar",
+    "page_subtitle": "Sistemdeki yayıncıları izle, kod gir, para kazan!",
+    "loading": "Yayıncılar yükleniyor...",
+    "no_streamers_title": "Şu anda canlı yayıncı yok",
+    "no_streamers_subtitle": "Yayıncılar online olduğunda burada görünecek",
+    "back_home": "Ana Sayfaya Dön",
+    "live_badge": "🔴 CANLI",
+    "watch_button": "📺 İzle"
+  },
+  "components": {
+    "code_settings": {
+      "title": "⏱️ Kod Ayarları",
+      "countdown_label": "Geri Sayım Süresi",
+      "countdown_info": "Kod gösterilmeden önce geri sayım",
+      "duration_label": "Kod Gösterim Süresi",
+      "duration_info": "Kod ne kadar süre ekranda kalacak",
+      "interval_label": "Kod Aralığı",
+      "interval_info": "Kodlar arası bekleme süresi",
+      "preset_fast": "Hızlı",
+      "preset_normal": "Normal",
+      "preset_slow": "Yavaş",
+      "save_button": "Kaydet",
+      "timing_info_title": "⏰ Zamanlama Bilgisi",
+      "timing_total": "Toplam Döngü",
+      "timing_codes_per_hour": "Saatte Kod Sayısı"
+    },
+    "reward_settings": {
+      "title": "💰 Ödül Miktarı",
+      "amount_label": "Kod Başı Ödül (TL)",
+      "save_button": "Kaydet"
+    },
+    "random_reward": {
+      "title": "🎲 Rastgele Ödül",
+      "toggle_label": "Rastgele Ödül Kullan",
+      "min_label": "Minimum (TL)",
+      "max_label": "Maximum (TL)",
+      "save_button": "Kaydet",
+      "info": "Her kodda rastgele bir ödül miktarı verilir"
+    },
+    "sound_settings": {
+      "title": "🔊 Ses Ayarları",
+      "master_toggle": "Ses Sistemi",
+      "code_sound_title": "Kod Sesi",
+      "code_sound_toggle": "Kod sesi çal",
+      "countdown_sound_title": "Geri Sayım Sesi",
+      "countdown_sound_toggle": "Geri sayım sesi çal",
+      "countdown_start_label": "Geri sayım sesi başlangıcı",
+      "countdown_start_info": "Geri sayımın kaç saniyesinde ses başlasın (0 = baştan)",
+      "save_button": "Kaydet"
+    },
+    "budget_calculator": {
+      "title": "💳 Bütçe Hesaplayıcı",
+      "budget_label": "Toplam Bütçe (TL)",
+      "duration_label": "Süre",
+      "duration_hour": "Saat",
+      "duration_day": "Gün",
+      "duration_week": "Hafta",
+      "duration_month": "Ay",
+      "calculate_button": "Hesapla",
+      "result_codes": "Saatte Kod",
+      "result_cost": "Toplam Maliyet",
+      "apply_button": "Ayarlara Uygula"
+    }
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "login": "Admin Girişi",
+    "username": "Kullanıcı Adı",
+    "password": "Şifre",
+    "login_button": "Giriş Yap",
+    "dashboard": "Dashboard",
+    "users": "Kullanıcılar",
+    "codes": "Kodlar",
+    "payouts": "Ödemeler",
+    "topups": "Bakiye Yüklemeleri",
+    "settings": "Ayarlar"
+  },
+  "messages": {
+    "code_success": "Kod kabul edildi! +{amount} TL",
+    "code_invalid": "Geçersiz kod",
+    "code_expired": "Kod süresi dolmuş",
+    "code_used": "Bu kodu daha önce kullandınız",
+    "code_not_found": "Kod bulunamadı",
+    "payout_success": "Ödeme talebi gönderildi",
+    "payout_error": "Yetersiz bakiye",
+    "topup_success": "Bakiye yükleme talebi gönderildi",
+    "settings_saved": "Ayarlar kaydedildi",
+    "theme_changed": "Tema değiştirildi",
+    "error_generic": "Bir hata oluştu",
+    "success_generic": "İşlem başarılı"
+  },
+  "form": {
+    "submit": "Gönder",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "view": "Görüntüle",
+    "close": "Kapat",
+    "reset": "Sıfırla",
+    "search": "Ara",
+    "filter": "Filtrele"
+  },
+  "validation": {
+    "required": "Bu alan gereklidir",
+    "invalid_format": "Geçersiz format",
+    "too_short": "Çok kısa",
+    "too_long": "Çok uzun",
+    "invalid_number": "Geçersiz sayı",
+    "invalid_email": "Geçersiz e-posta",
+    "invalid_url": "Geçersiz URL"
+  },
+  "time": {
+    "seconds": "saniye",
+    "minutes": "dakika",
+    "hours": "saat",
+    "days": "gün",
+    "weeks": "hafta",
+    "months": "ay",
+    "ago": "önce",
+    "just_now": "az önce"
+  },
+  "currency": {
+    "symbol": "TL",
+    "format": "{amount} TL"
+  }
+}
+

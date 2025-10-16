@@ -141,3 +141,6 @@ $_SESSION['last_activity'] = time();
 require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/helpers.php';
 
+// Include language configuration (i18n)
+require_once __DIR__ . '/../languages/config.php';
+

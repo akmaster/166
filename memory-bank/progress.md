@@ -43,14 +43,15 @@
 
 ### Phase 4: Main Pages ✅ (100%)
 
-- [x] `index.php` - Landing page (giriş yapmamış)
+- [x] `index.php` - Landing page (giriş yapmamış) + i18n
 - [x] `dashboard/index.php` - Kullanıcı dashboard
 - [x] `dashboard/.htaccess` - URL rewriting
-- [x] `streamers.php` - Live streamers page
+- [x] `streamers.php` - Live streamers page + i18n
 - [x] `callback.php` - OAuth callback
 - [x] **YENİ:** Dashboard klasörüne taşındı
 - [x] **YENİ:** Landing page ayrıldı
 - [x] **YENİ:** URL yapısı: `/dashboard/username`
+- [x] **YENİ:** Çoklu dil sistemi (Türkçe/İngilizce)
 
 ### Phase 5: OBS Overlay ✅ (100%)
 
@@ -114,24 +115,39 @@
 - [x] `memory-bank/activeContext.md`
 - [x] `memory-bank/progress.md`
 
+### Phase 11: Multilingual System ✅ (100%)
+
+- [x] `/languages` klasörü oluşturuldu
+- [x] `languages/config.php` - Helper functions
+- [x] `languages/tr.json` - Türkçe çeviriler (100+ key)
+- [x] `languages/en.json` - İngilizce çeviriler (100+ key)
+- [x] `config/config.php` - Language config entegrasyonu
+- [x] `index.php` - Landing page çevirileri
+- [x] `streamers.php` - Streamers page çevirileri
+- [x] Navbar dil seçici
+- [x] CSS - Language switcher styling
+- [x] Cookie ile dil tercihi
+
 ## 📊 Toplam İlerleme: 100%
 
 **Dosya İstatistikleri:**
 
-- PHP dosyaları: 37+
+- PHP dosyaları: 38+ (+ languages/config.php)
+- JSON dosyaları: 2 (tr.json, en.json)
 - CSS dosyaları: 12 (6 source + 6 minified)
 - JS dosyaları: 10 (5 source + 5 minified)
 - SQL dosyaları: 2 (schema + migration)
 - Documentation: 7 (README + 6 memory bank)
-- **Toplam:** 68+ dosya
+- **Toplam:** 71+ dosya
 
 **Kod Satırları (tahmini):**
 
-- PHP: ~5,400 satır
+- PHP: ~5,600 satır (+ languages/config.php)
+- JSON: ~400 satır (tr.json + en.json)
 - SQL: ~250 satır
-- CSS: ~3,000 satır
+- CSS: ~3,020 satır (+ language switcher)
 - JavaScript: ~2,000 satır
-- **Toplam:** ~10,650 satır
+- **Toplam:** ~11,270 satır
 
 ## 🎯 Kalan İşler
 
