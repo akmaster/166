@@ -19,10 +19,17 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 try {
     $code = sanitize($_POST['code'] ?? '');
+    
+    // Debug: Log the received code
+    error_log('Received code: ' . $code);
 
     // Check if user is logged in
     $isLoggedIn = isLoggedIn();
     $userId = $isLoggedIn ? getCurrentUserId() : null;
+    
+    // Debug: Log login status
+    error_log('User logged in: ' . ($isLoggedIn ? 'yes' : 'no'));
+    error_log('User ID: ' . ($userId ?? 'null'));
 
     // Validate code format
     if (!isValidCode($code)) {
