@@ -455,7 +455,8 @@ function baseUrl($path = '') {
  * Asset URL helper
  */
 function asset($path) {
-    return baseUrl('assets/' . ltrim($path, '/'));
+    $version = filemtime(__DIR__ . '/../assets/' . ltrim($path, '/'));
+    return baseUrl('assets/' . ltrim($path, '/')) . '?v=' . $version;
 }
 
 /**
